@@ -15,4 +15,19 @@
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.3.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Profile\Controllers" />
+      <Folder Include="Profile\Domain\Repositories" />
+      <Folder Include="Profile\Domain\Services" />
+      <Folder Include="Shared" />
+      <Folder Include="Shipments\Controllers" />
+      <Folder Include="Shipments\Domain\Models" />
+      <Folder Include="Shipments\Domain\Repositories" />
+      <Folder Include="Shipments\Domain\Services" />
+      <Folder Include="Shipments\Mapping" />
+      <Folder Include="Shipments\Persistence" />
+      <Folder Include="Shipments\Resources" />
+      <Folder Include="Shipments\Services" />
+    </ItemGroup>
+
 </Project>
