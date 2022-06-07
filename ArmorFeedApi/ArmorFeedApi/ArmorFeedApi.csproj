@@ -9,6 +9,8 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="11.0.1" />
         <PackageReference Include="EntityFramework" Version="6.4.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0-preview.4.22229.2" />
+        <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
         <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.1" />
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.3.1" />
@@ -19,14 +21,7 @@
       <Folder Include="Profile\Controllers" />
       <Folder Include="Profile\Domain\Repositories" />
       <Folder Include="Profile\Domain\Services" />
-      <Folder Include="Shared" />
       <Folder Include="Shipments\Controllers" />
-      <Folder Include="Shipments\Domain\Models" />
-      <Folder Include="Shipments\Domain\Repositories" />
-      <Folder Include="Shipments\Domain\Services" />
-      <Folder Include="Shipments\Mapping" />
-      <Folder Include="Shipments\Persistence" />
-      <Folder Include="Shipments\Resources" />
       <Folder Include="Shipments\Services" />
     </ItemGroup>
 
