@@ -21,8 +21,6 @@
       <Folder Include="Profile\Controllers" />
       <Folder Include="Profile\Domain\Repositories" />
       <Folder Include="Profile\Domain\Services" />
-      <Folder Include="Shipments\Controllers" />
-      <Folder Include="Shipments\Services" />
     </ItemGroup>
 
 </Project>

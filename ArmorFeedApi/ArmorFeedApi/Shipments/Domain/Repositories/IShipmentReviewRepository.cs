@@ -9,4 +9,5 @@ public interface IShipmentReviewRepository
     Task<ShipmentReview> FindByIdAsync(int id);
     void Update(ShipmentReview shipment);
     void Remove(ShipmentReview shipment);
+    Task<IEnumerable<ShipmentReview>> FindByShipmentId(int shipmentId);
 }
