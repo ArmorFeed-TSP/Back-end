@@ -1,4 +1,5 @@
-﻿using ArmorFeedApi.Shipments.Domain.Models;
+﻿using ArmorFeedApi.Payments.Domain.Model;
+using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,7 @@ public class AppDbContext: DbContext
 
     public DbSet<Shipment> Shipments;
     public DbSet<ShipmentReview> ShipmentReviews;
+    public DbSet<Transaction> Transactions;
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -33,6 +35,9 @@ public class AppDbContext: DbContext
         // With Costumer
         builder.Entity<Shipment>().HasOne(s => s.Customer);
         
+        // With Transaction
+        builder.Entity<Shipment>().HasMany(s => s.Transactions);
+
         // Shipments Review
         builder.Entity<ShipmentReview>().ToTable("ShipmentReviews");
         builder.Entity<ShipmentReview>().HasKey(s => s.Id);

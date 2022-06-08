@@ -1,4 +1,6 @@
-﻿namespace ArmorFeedApi.Shipments.Domain.Models;
+﻿using ArmorFeedApi.Payments.Domain.Model;
+
+namespace ArmorFeedApi.Shipments.Domain.Models;
 
 public class Shipment
 {
@@ -14,4 +16,6 @@ public class Shipment
     
     public int CostumerId { get; set; }
     public Customer Customer { get; set; }
+
+    public IList<Transaction> Transactions { get; set; } = new List<Transaction>();
 }
