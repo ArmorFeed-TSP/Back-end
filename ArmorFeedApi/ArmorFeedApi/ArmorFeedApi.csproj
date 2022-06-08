@@ -22,7 +22,6 @@
     <ItemGroup>
       <Folder Include="Payments\Controllers" />
       <Folder Include="Payments\Persistence" />
-      <Folder Include="Payments\Services" />
       <Folder Include="Profile\Controllers" />
       <Folder Include="Profile\Domain\Repositories" />
       <Folder Include="Profile\Domain\Services" />
