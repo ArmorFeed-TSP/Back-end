@@ -36,7 +36,7 @@ public class AppDbContext: DbContext
         builder.Entity<Shipment>().HasOne(s => s.Customer);
         
         // With Transaction
-        builder.Entity<Shipment>().HasMany(s => s.Transactions);
+        builder.Entity<Shipment>().HasMany(s => s.Transactions).WithOne(p=>p.Shipment).HasForeignKey(p=>p.ShipmentId);
 
         // Shipments Review
         builder.Entity<ShipmentReview>().ToTable("ShipmentReviews");
