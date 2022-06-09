@@ -2,5 +2,5 @@
 
 public class Enterprise
 {
-    
+    public int Id { get; set; }
 }

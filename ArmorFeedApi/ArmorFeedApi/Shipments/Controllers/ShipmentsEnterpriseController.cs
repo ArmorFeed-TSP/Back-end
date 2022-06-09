@@ -1,4 +1,5 @@
-﻿using ArmorFeedApi.Shipments.Domain.Models;
+﻿using System.Net.Mime;
+using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Shipments.Domain.Services;
 using ArmorFeedApi.Shipments.Resources;
 using AutoMapper;
@@ -7,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace ArmorFeedApi.Shipments.Controllers;
 
 [ApiController]
-[Route("/api/v1/shipments?enterpriseId={enterpriseId}")]
+[Route("/api/v1/[controller]")]
+[Produces(MediaTypeNames.Application.Json)]
 public class ShipmentsEnterpriseController: ControllerBase
 {
     private readonly IShipmentService _shipmentService;
