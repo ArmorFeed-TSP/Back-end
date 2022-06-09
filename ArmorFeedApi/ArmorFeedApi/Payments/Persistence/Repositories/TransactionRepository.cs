@@ -1,7 +1,7 @@
 using ArmorFeedApi.Payments.Domain.Model;
-using ArmorFeedApi.Payments.Domain.Repository;
-using ArmorFeedApi.Shipments.Persistence.Contexts;
-using ArmorFeedApi.Shipments.Persistence.Repositories;
+using ArmorFeedApi.Payments.Domain.Repositories;
+using ArmorFeedApi.Shared.Persistence.Contexts;
+using ArmorFeedApi.Shared.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArmorFeedApi.Payments.Persistence.Repositories;

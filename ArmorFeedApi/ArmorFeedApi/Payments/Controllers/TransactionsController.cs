@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using ArmorFeedApi.Payments.Domain.Model;
 using ArmorFeedApi.Payments.Domain.Services;
 using ArmorFeedApi.Payments.Resources;
@@ -7,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ArmorFeedApi.Payments.Controllers;
 
+[ApiController]
+[Route("/api/v1/[controller]")]
+[Produces(MediaTypeNames.Application.Json)]
 public class TransactionsController : ControllerBase
 {
     private readonly ITransactionService _transactionService;

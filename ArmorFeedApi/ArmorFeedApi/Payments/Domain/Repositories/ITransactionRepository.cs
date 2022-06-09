@@ -1,6 +1,6 @@
 using ArmorFeedApi.Payments.Domain.Model;
 
-namespace ArmorFeedApi.Payments.Domain.Repository;
+namespace ArmorFeedApi.Payments.Domain.Repositories;
 
 public interface ITransactionRepository
 {

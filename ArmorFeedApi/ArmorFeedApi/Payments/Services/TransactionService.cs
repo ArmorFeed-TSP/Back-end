@@ -1,5 +1,5 @@
 using ArmorFeedApi.Payments.Domain.Model;
-using ArmorFeedApi.Payments.Domain.Repository;
+using ArmorFeedApi.Payments.Domain.Repositories;
 using ArmorFeedApi.Payments.Domain.Services;
 using ArmorFeedApi.Payments.Domain.Services.Communication;
 using ArmorFeedApi.Shipments.Domain.Repositories;
