@@ -1,9 +1,9 @@
 ﻿using ArmorFeedApi.Payments.Domain.Model;
-using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Shared.Extensions;
+using ArmorFeedApi.Shipments.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ArmorFeedApi.Shipments.Persistence.Contexts;
+namespace ArmorFeedApi.Shared.Persistence.Contexts;
 
 public class AppDbContext: DbContext
 {
@@ -14,12 +14,20 @@ public class AppDbContext: DbContext
 
     public DbSet<Shipment> Shipments;
     public DbSet<ShipmentReview> ShipmentReviews;
-    public DbSet<Transaction> Transactions;
+    public DbSet<Transaction> Transactions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // Shipments
         base.OnModelCreating(builder);
+        //Transactions
+        builder.Entity<Transaction>().ToTable("Transactions");
+        builder.Entity<Transaction>().HasKey(p => p.Id);
+        builder.Entity<Transaction>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Transaction>().Property(p => p.Amount).IsRequired();
+        builder.Entity<Transaction>().Property(p => p.Currency).IsRequired().HasMaxLength(20);
+        
+        //Shipments
         builder.Entity<Shipment>().ToTable("Shipments");
         builder.Entity<Shipment>().HasKey(s => s.Id);
         builder.Entity<Shipment>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
@@ -50,6 +58,7 @@ public class AppDbContext: DbContext
         // With Shipment
         builder.Entity<ShipmentReview>().HasOne(s => s.Shipment);
         
+        //Apply Snake Case Naming Conventios
         builder.UseSnakeCaseNamingConvention();
     }
 }

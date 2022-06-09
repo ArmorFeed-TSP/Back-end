@@ -1,4 +1,4 @@
-﻿using ArmorFeedApi.Payments.Persistence.Contexts;
+﻿using ArmorFeedApi.Shared.Persistence.Contexts;
 
 namespace ArmorFeedApi.Shared.Persistence.Repositories;
 

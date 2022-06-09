@@ -2,7 +2,7 @@
 
 public static class StringExtensions
 {
-    public static string ToSnakeCase(this string text)
+    public static string ToSnakeCase(this string? text)
     {
         static IEnumerable<char> Convert(CharEnumerator e)
         {
