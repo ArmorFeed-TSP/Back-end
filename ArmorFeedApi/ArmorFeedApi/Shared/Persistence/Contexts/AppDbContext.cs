@@ -14,18 +14,18 @@ public class AppDbContext: DbContext
 
     public DbSet<Shipment> Shipments;
     public DbSet<ShipmentReview> ShipmentReviews;
-    public DbSet<Transaction> Transactions { get; set; }
+    public DbSet<Payment> Payments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // Shipments
         base.OnModelCreating(builder);
-        //Transactions
-        builder.Entity<Transaction>().ToTable("Transactions");
-        builder.Entity<Transaction>().HasKey(p => p.Id);
-        builder.Entity<Transaction>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<Transaction>().Property(p => p.Amount).IsRequired();
-        builder.Entity<Transaction>().Property(p => p.Currency).IsRequired().HasMaxLength(20);
+        //Payments
+        builder.Entity<Payment>().ToTable("Payments");
+        builder.Entity<Payment>().HasKey(p => p.Id);
+        builder.Entity<Payment>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Payment>().Property(p => p.Amount).IsRequired();
+        builder.Entity<Payment>().Property(p => p.Currency).IsRequired().HasMaxLength(20);
         
         //Shipments
         builder.Entity<Shipment>().ToTable("Shipments");
@@ -43,8 +43,8 @@ public class AppDbContext: DbContext
         // With Costumer
         builder.Entity<Shipment>().HasOne(s => s.Customer);
         
-        // With Transaction
-        builder.Entity<Shipment>().HasMany(s => s.Transactions).WithOne(p=>p.Shipment).HasForeignKey(p=>p.ShipmentId);
+        // With Payment
+        builder.Entity<Shipment>().HasMany(s => s.Payments).WithOne(p=>p.Shipment).HasForeignKey(p=>p.ShipmentId);
 
         // Shipments Review
         builder.Entity<ShipmentReview>().ToTable("ShipmentReviews");

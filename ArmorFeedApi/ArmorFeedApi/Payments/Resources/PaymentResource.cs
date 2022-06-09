@@ -2,7 +2,7 @@ using ArmorFeedApi.Shipments.Resources;
 
 namespace ArmorFeedApi.Payments.Resources;
 
-public class TransactionResource
+public class PaymentResource
 {
    public int Id { get; set; }
    public float Amount { get; set; }

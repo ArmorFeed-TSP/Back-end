@@ -10,7 +10,7 @@ public class ResourceToModelProfile: Profile
 {
     public ResourceToModelProfile()
     {
-        CreateMap<SaveTransactionResource, Transaction>();
+        CreateMap<SavePaymentResource, Payment>();
         CreateMap<SaveShipmentResource, Shipment>();
         CreateMap<SaveShipmentReviewResource, ShipmentReview>();
     }

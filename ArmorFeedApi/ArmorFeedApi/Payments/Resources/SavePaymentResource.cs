@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ArmorFeedApi.Payments.Resources;
 
-public class SaveTransactionResource
+public class SavePaymentResource
 {
     [Required]
     public float Amount { get; set; }

@@ -2,7 +2,7 @@ using ArmorFeedApi.Shipments.Domain.Models;
 
 namespace ArmorFeedApi.Payments.Domain.Model;
 
-public class Transaction
+public class Payment
 {
     public int Id { get; set; }
     public float Amount { get; set; }
