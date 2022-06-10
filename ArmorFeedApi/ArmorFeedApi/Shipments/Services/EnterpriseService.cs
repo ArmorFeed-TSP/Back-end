@@ -34,7 +34,7 @@ public class EnterpriseService:IEnterpriseService
         }
         catch (Exception e)
         {
-            return new EnterpriseResponse($"An error occurred while saving the category: {e.Message}");
+            return new EnterpriseResponse($"An error occurred while saving the enterprise: {e.Message}");
         }
     }
 
@@ -43,7 +43,7 @@ public class EnterpriseService:IEnterpriseService
         var existingEnterprise = await _enterpriseRepository.FindByIdAsync(id);
 
         if (existingEnterprise == null)
-            return new EnterpriseResponse("Category not found.");
+            return new EnterpriseResponse("Enterprise not found.");
 
         existingEnterprise.Name = enterprise.Name;
 
@@ -56,7 +56,7 @@ public class EnterpriseService:IEnterpriseService
         }
         catch (Exception e)
         {
-            return new EnterpriseResponse($"An error occurred while updating the category: {e.Message}");
+            return new EnterpriseResponse($"An error occurred while updating the enterprise: {e.Message}");
         }
     }
 
@@ -65,7 +65,7 @@ public class EnterpriseService:IEnterpriseService
         var existingEnterprise = await _enterpriseRepository.FindByIdAsync(id);
 
         if (existingEnterprise == null)
-            return new EnterpriseResponse("Category not found.");
+            return new EnterpriseResponse("Enterprise not found.");
 
         try
         {
@@ -76,7 +76,7 @@ public class EnterpriseService:IEnterpriseService
         }
         catch (Exception e)
         {
-            return new EnterpriseResponse($"An error occurred while deleting the category: {e.Message}");
+            return new EnterpriseResponse($"An error occurred while deleting the enterprise: {e.Message}");
         }
     }
 }
