@@ -68,9 +68,10 @@ builder.Services.AddScoped<IShipmentReviewRepository, ShipmentReviewRepository>(
 builder.Services.AddScoped<IShipmentReviewService, ShipmentReviewService>();
 builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
 builder.Services.AddScoped<IEnterpriseService, EnterpriseService>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // AutoMapper Configuration
 
 builder.Services.AddAutoMapper(

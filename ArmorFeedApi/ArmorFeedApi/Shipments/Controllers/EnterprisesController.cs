@@ -1,5 +1,6 @@
 ﻿
 
+using System.Net.Mime;
 using ArmorFeedApi.Shared.Extensions;
 using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Shipments.Domain.Services;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ArmorFeedApi.Shipments.Controllers;
 
 [Route("/api/v1/[controller]")] 
+[Produces(MediaTypeNames.Application.Json)]
 public class EnterprisesController: ControllerBase
 {
     private readonly IEnterpriseService _enterpriseService;

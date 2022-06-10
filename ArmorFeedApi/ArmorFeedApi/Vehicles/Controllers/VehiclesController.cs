@@ -1,4 +1,5 @@
-﻿using ArmorFeedApi.Shared.Extensions;
+﻿using System.Net.Mime;
+using ArmorFeedApi.Shared.Extensions;
 using ArmorFeedApi.Vehicles.Domain.Models;
 using ArmorFeedApi.Vehicles.Domain.Services;
 using ArmorFeedApi.Vehicles.Resources;
@@ -9,6 +10,7 @@ namespace ArmorFeedApi.Vehicles.Controllers;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
+[Produces(MediaTypeNames.Application.Json)]
 public class VehiclesController: ControllerBase
 {
     private readonly IVehicleService _vehicleService;
