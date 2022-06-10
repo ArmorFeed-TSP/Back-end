@@ -18,11 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Payments\Mapping" />
       <Folder Include="Payments\Persistence\Contexts" />
-      <Folder Include="Profile\Controllers" />
-      <Folder Include="Profile\Domain\Repositories" />
-      <Folder Include="Profile\Domain\Services" />
       <Folder Include="Vehicles" />
     </ItemGroup>
 

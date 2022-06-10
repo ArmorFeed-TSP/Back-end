@@ -1,5 +1,4 @@
-﻿using ArmorFeedApi.Payments.Domain.Model;
-
+﻿
 namespace ArmorFeedApi.Shipments.Domain.Models;
 
 public class Shipment
@@ -16,6 +15,5 @@ public class Shipment
     
     public int CostumerId { get; set; }
     public Customer Customer { get; set; }
-
-    public IList<Payment> Payments { get; set; } = new List<Payment>();
+    
 }

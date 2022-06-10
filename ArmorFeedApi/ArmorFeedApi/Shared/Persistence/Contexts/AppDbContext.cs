@@ -29,7 +29,7 @@ public class AppDbContext: DbContext
         builder.Entity<Payment>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<Payment>().Property(p => p.Amount).IsRequired();
         builder.Entity<Payment>().Property(p => p.Currency).IsRequired().HasMaxLength(20);
-        
+
         //Shipments
         builder.Entity<Shipment>().ToTable("Shipments");
         builder.Entity<Shipment>().HasKey(s => s.Id);
@@ -46,9 +46,6 @@ public class AppDbContext: DbContext
         // With Costumer
         builder.Entity<Shipment>().HasOne(s => s.Customer);
         
-        // With Payment
-        builder.Entity<Shipment>().HasMany(s => s.Payments).WithOne(p=>p.Shipment).HasForeignKey(p=>p.ShipmentId);
-
         // Shipments Review
         builder.Entity<ShipmentReview>().ToTable("ShipmentReviews");
         builder.Entity<ShipmentReview>().HasKey(s => s.Id);

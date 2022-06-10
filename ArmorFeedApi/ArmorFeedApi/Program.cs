@@ -1,7 +1,4 @@
-using ArmorFeedApi.Payments.Domain.Repositories;
-using ArmorFeedApi.Payments.Domain.Services;
-using ArmorFeedApi.Payments.Persistence.Repositories;
-using ArmorFeedApi.Payments.Services;
+
 using ArmorFeedApi.Shared.Domain.Repositories;
 using ArmorFeedApi.Shared.Mapping;
 using ArmorFeedApi.Shared.Persistence.Contexts;
@@ -65,8 +62,6 @@ builder.Services.AddRouting(options =>
 
 // Dependency Injection Configuration ArmorFeed
 
-builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
-builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<IShipmentService, ShipmentService>();
 builder.Services.AddScoped<IShipmentReviewRepository, ShipmentReviewRepository>();
