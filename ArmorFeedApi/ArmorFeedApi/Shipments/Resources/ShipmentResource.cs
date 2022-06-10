@@ -11,5 +11,6 @@ public class ShipmentResource
     public DateTime DeliveryDate { get; set; }
     public int ShipmentStatus { get; set; }
     
-    public Enterprise Enterprise { get; set; }
+    public int EnterpriseId { get; set; }
+    public int CustomerId { get; set; }
 }

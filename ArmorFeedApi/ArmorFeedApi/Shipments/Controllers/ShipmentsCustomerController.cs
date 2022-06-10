@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ArmorFeedApi.Shipments.Controllers;
 
 [ApiController]
-[Route("/api/v1/[controller]")]
+[Route("/api/v1/customers/{customerId}/shipments")]
 [Produces(MediaTypeNames.Application.Json)]
 public class ShipmentsCustomerController
 {
