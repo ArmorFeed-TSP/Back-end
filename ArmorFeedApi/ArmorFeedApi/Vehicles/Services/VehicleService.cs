@@ -36,19 +36,17 @@ public class VehicleService:IVehicleService
 
     public async Task<VehicleResponse> SaveAsync(Vehicle vehicle)
     {
-        // Validate Enterprise Id
 
         var existingEnterprise = _enterpriseRepository.FindByIdAsync(vehicle.EnterpriseId);
 
         if (existingEnterprise == null)
             return new VehicleResponse("Invalid Enterprise");
         
-        //Validate Title
 
         var existingVehicleWithBrand = await _vehicleRepository.FindByBrandAsync(vehicle.Brand);
 
         if (existingVehicleWithBrand != null)
-            return new VehicleResponse("Vehicle Title already exists");
+            return new VehicleResponse("Vehicle License Plate already exists");
 
         try
         {
@@ -59,7 +57,7 @@ public class VehicleService:IVehicleService
         }
         catch (Exception e)
         {
-            return new VehicleResponse($"An error occurred while saving the tutorial: {e.Message}");
+            return new VehicleResponse($"An error occurred while saving the vehicle: {e.Message}");
         }
 
     }
@@ -68,12 +66,10 @@ public class VehicleService:IVehicleService
     {
         var existingVehicle = await _vehicleRepository.FindByIdAsync(vehicleId);
         
-        // Validate Tutorial Id
 
         if (existingVehicle == null)
             return new VehicleResponse("Vehicle not found.");
 
-        // Validate Category Id
 
         var existingEnterprise = _enterpriseRepository.FindByIdAsync(vehicle.EnterpriseId);
 
@@ -108,7 +104,7 @@ public class VehicleService:IVehicleService
         var existingVehicle = await _vehicleRepository.FindByIdAsync(vehicleId);
 
         if (existingVehicle == null)
-            return new VehicleResponse("Tutorial not found.");
+            return new VehicleResponse("Vehicle not found.");
 
         try
         {
@@ -119,7 +115,7 @@ public class VehicleService:IVehicleService
         }
         catch (Exception e)
         {
-            return new VehicleResponse($"An error occurred while deleting the tutorial: {e.Message}");
+            return new VehicleResponse($"An error occurred while deleting the vehicle: {e.Message}");
         }
     }
 }
