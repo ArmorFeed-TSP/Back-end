@@ -18,7 +18,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Payments\Persistence\Contexts" />
       <Folder Include="Vehicles" />
     </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿using ArmorFeedApi.Payments.Domain.Model;
+﻿
 using ArmorFeedApi.Shared.Extensions;
 using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Vehicles.Domain.Models;
@@ -15,20 +15,12 @@ public class AppDbContext: DbContext
 
     public DbSet<Shipment> Shipments;
     public DbSet<ShipmentReview> ShipmentReviews;
-    public DbSet<Payment> Payments { get; set; }
     public DbSet<Enterprise> Enterprises { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        // Shipments
-        base.OnModelCreating(builder);
-        //Payments
-        builder.Entity<Payment>().ToTable("Payments");
-        builder.Entity<Payment>().HasKey(p => p.Id);
-        builder.Entity<Payment>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<Payment>().Property(p => p.Amount).IsRequired();
-        builder.Entity<Payment>().Property(p => p.Currency).IsRequired().HasMaxLength(20);
+    
 
         //Shipments
         builder.Entity<Shipment>().ToTable("Shipments");

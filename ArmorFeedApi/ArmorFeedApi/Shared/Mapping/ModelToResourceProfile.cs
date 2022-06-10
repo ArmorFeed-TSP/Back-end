@@ -1,6 +1,4 @@
 
-using ArmorFeedApi.Payments.Domain.Model;
-using ArmorFeedApi.Payments.Resources;
 using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Shipments.Resources;
 using AutoMapper;
@@ -11,7 +9,6 @@ public class ModelToResourceProfile: Profile
 {
     public ModelToResourceProfile()
     {
-        CreateMap<Payment, PaymentResource>();
         CreateMap<Shipment, ShipmentResource>();
         CreateMap<ShipmentReview, ShipmentReviewResource>();
     }
