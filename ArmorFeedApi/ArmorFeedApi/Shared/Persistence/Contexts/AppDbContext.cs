@@ -1,8 +1,10 @@
-﻿using ArmorFeedApi.Shipments.Domain.Models;
+﻿using ArmorFeedApi.Payments.Domain.Model;
 using ArmorFeedApi.Shared.Extensions;
+using ArmorFeedApi.Shipments.Domain.Models;
+using ArmorFeedApi.Vehicles.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ArmorFeedApi.Shipments.Persistence.Contexts;
+namespace ArmorFeedApi.Shared.Persistence.Contexts;
 
 public class AppDbContext: DbContext
 {
@@ -13,11 +15,22 @@ public class AppDbContext: DbContext
 
     public DbSet<Shipment> Shipments;
     public DbSet<ShipmentReview> ShipmentReviews;
+    public DbSet<Payment> Payments { get; set; }
+    public DbSet<Enterprise> Enterprises { get; set; }
+    public DbSet<Vehicle> Vehicles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // Shipments
         base.OnModelCreating(builder);
+        //Payments
+        builder.Entity<Payment>().ToTable("Payments");
+        builder.Entity<Payment>().HasKey(p => p.Id);
+        builder.Entity<Payment>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Payment>().Property(p => p.Amount).IsRequired();
+        builder.Entity<Payment>().Property(p => p.Currency).IsRequired().HasMaxLength(20);
+        
+        //Shipments
         builder.Entity<Shipment>().ToTable("Shipments");
         builder.Entity<Shipment>().HasKey(s => s.Id);
         builder.Entity<Shipment>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
@@ -33,6 +46,9 @@ public class AppDbContext: DbContext
         // With Costumer
         builder.Entity<Shipment>().HasOne(s => s.Customer);
         
+        // With Payment
+        builder.Entity<Shipment>().HasMany(s => s.Payments).WithOne(p=>p.Shipment).HasForeignKey(p=>p.ShipmentId);
+
         // Shipments Review
         builder.Entity<ShipmentReview>().ToTable("ShipmentReviews");
         builder.Entity<ShipmentReview>().HasKey(s => s.Id);
@@ -45,6 +61,7 @@ public class AppDbContext: DbContext
         // With Shipment
         builder.Entity<ShipmentReview>().HasOne(s => s.Shipment);
         
+        //Apply Snake Case Naming Conventios
         builder.UseSnakeCaseNamingConvention();
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace ArmorFeedApi.Shipments.Domain.Repositories;
+﻿namespace ArmorFeedApi.Shared.Domain.Repositories;
 
 public interface IUnitOfWork
 {
