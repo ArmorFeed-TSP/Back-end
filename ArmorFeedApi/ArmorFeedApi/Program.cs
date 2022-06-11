@@ -10,6 +10,10 @@ using ArmorFeedApi.Enterprises.Domain.Repositories;
 using ArmorFeedApi.Enterprises.Domain.Services;
 using ArmorFeedApi.Enterprises.Persistence.Repositories;
 using ArmorFeedApi.Enterprises.Services;
+using ArmorFeedApi.Shipments.Domain.Repositories;
+using ArmorFeedApi.Shipments.Domain.Services;
+using ArmorFeedApi.Shipments.Persistence.Repositories;
+using ArmorFeedApi.Shipments.Services;
 using ArmorFeedApi.Vehicles.Domain.Repositories;
 using ArmorFeedApi.Vehicles.Domain.Services;
 using ArmorFeedApi.Vehicles.Persistence.Repositories;
@@ -72,6 +76,8 @@ builder.Services.AddScoped<IEnterpriseService, EnterpriseService>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
+builder.Services.AddScoped<IShipmentService, ShipmentService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // AutoMapper Configuration

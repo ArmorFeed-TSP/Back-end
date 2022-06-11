@@ -5,12 +5,14 @@ using ArmorFeedApi.Enterprises.Resources;
 using ArmorFeedApi.Shared.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ArmorFeedApi.Enterprises.Controllers;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
+[SwaggerTag("Create, Read, Update and Delete Enterprises")]
 public class EnterprisesController: ControllerBase
 {
     private readonly IEnterpriseService _enterpriseService;
@@ -22,6 +24,12 @@ public class EnterprisesController: ControllerBase
         _mapper = mapper;
     }
     [HttpGet]
+    [SwaggerOperation(
+        Summary = "Get All Enterprise",
+        Description = "Get All Enterprise",
+        OperationId = "GetEnterprise",
+        Tags = new []{"Enterprises"}
+    )]
     public async Task<IEnumerable<EnterpriseResource>> GetAllSync()
     {
         var enterprises = await _enterpriseService.ListAsync();
@@ -30,6 +38,12 @@ public class EnterprisesController: ControllerBase
     }
     
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Post Enterprise",
+        Description = "Save Enterprise In Database",
+        OperationId = "PostEnterprise",
+        Tags = new []{"Enterprises"}
+    )]
     public async Task<IActionResult> PostAsync([FromBody] SaveEnterpriseResource resource)
     {
         if (!ModelState.IsValid)
@@ -48,6 +62,12 @@ public class EnterprisesController: ControllerBase
     }
 
     [HttpPut("{id}")]
+    [SwaggerOperation(
+        Summary = "Edit Enterprise",
+        Description = "Edit Enterprise exiting in database",
+        OperationId = "PutEnterprise",
+        Tags = new []{"Enterprises"}
+    )]
     public async Task<IActionResult> PutAsync(int id, [FromBody] SaveEnterpriseResource resource)
     {
         if (!ModelState.IsValid)
@@ -66,6 +86,12 @@ public class EnterprisesController: ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [SwaggerOperation(
+        Summary = "Delete Enterprise",
+        Description = "Delete Enterprise By Id In Database",
+        OperationId = "DeleteEnterprise",
+        Tags = new []{"Enterprises"}
+    )]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         var result = await _enterpriseService.DeleteAsync(id);

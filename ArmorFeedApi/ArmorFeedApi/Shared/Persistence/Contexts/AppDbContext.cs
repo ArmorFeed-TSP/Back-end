@@ -1,6 +1,7 @@
 ﻿using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Payments.Domain.Model;
 using ArmorFeedApi.Shared.Extensions;
+using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Vehicles.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,13 +13,14 @@ public class AppDbContext: DbContext
     {
         
     }
+
+    public DbSet<Shipment> Shipments { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Enterprise> Enterprises { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        // Shipments
         base.OnModelCreating(builder);
         
         //Payments
@@ -50,7 +52,29 @@ public class AppDbContext: DbContext
         builder.Entity<Vehicle>().Property(p => p.Model).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.LicensePlate).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.VehicleType).IsRequired();
+
+        //Shipments
+        builder.Entity<Shipment>().ToTable("Shipments");
+        builder.Entity<Shipment>().HasKey(s => s.Id); 
+        builder.Entity<Shipment>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Shipment>().Property(s => s.Origin).IsRequired().HasMaxLength(50);
+        builder.Entity<Shipment>().Property(s => s.OriginAddress).IsRequired().HasMaxLength(150);
+        builder.Entity<Shipment>().Property(s => s.OriginTypeAddress).IsRequired().HasMaxLength(50);
+        builder.Entity<Shipment>().Property(s => s.OriginReference).IsRequired().HasMaxLength(100);
+        builder.Entity<Shipment>().Property(s => s.OriginUrbanization).IsRequired().HasMaxLength(50);
+        builder.Entity<Shipment>().Property(s => s.Destiny).IsRequired().HasMaxLength(50);
+        builder.Entity<Shipment>().Property(s => s.DestinyAddress).IsRequired().HasMaxLength(150);
+        builder.Entity<Shipment>().Property(s => s.DestinyTypeAddress).IsRequired().HasMaxLength(50);
+        builder.Entity<Shipment>().Property(s => s.DestinyReference).IsRequired().HasMaxLength(100);
+        builder.Entity<Shipment>().Property(s => s.DestinyUrbanization).IsRequired().HasMaxLength(60);
+        builder.Entity<Shipment>().Property(s => s.PickUpDate).IsRequired();
+        builder.Entity<Shipment>().Property(s => s.DeliveryDate).IsRequired();
+        builder.Entity<Shipment>().Property(s => s.Status).IsRequired();
         
+        // Shipments Relationships
+        builder.Entity<Shipment>().HasOne(s => s.Enterprise);
+        builder.Entity<Shipment>().HasOne(s => s.Customer);
+
         //Relationships
         builder.Entity<Enterprise>()
             .HasMany(p => p.Vehicles)

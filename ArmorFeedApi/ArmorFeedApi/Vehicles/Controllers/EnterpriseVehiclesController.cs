@@ -4,6 +4,7 @@ using ArmorFeedApi.Vehicles.Domain.Services;
 using ArmorFeedApi.Vehicles.Resources;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ArmorFeedApi.Vehicles.Controllers;
 
@@ -21,6 +22,12 @@ public class EnterpriseVehiclesController: ControllerBase
     }
 
     [HttpGet]
+    [SwaggerOperation(
+        Summary = "Get Vehicles",
+        Description = "Get All Vehicle by Enterprise Id",
+        OperationId = "GetVechicles",
+        Tags = new []{"Enterprises"}
+    )]
     public async Task<IEnumerable<VehicleResource>> GetAllByEnterpriseId(int enterpriseId)
     {
         var vehicles = await _vehicleService.ListByEnterpriseAsync(enterpriseId);

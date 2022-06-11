@@ -5,11 +5,13 @@ using ArmorFeedApi.Payments.Resources;
 using ArmorFeedApi.Shared.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ArmorFeedApi.Payments.Controllers;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
+[SwaggerTag("Create and read Payments")]
 [Produces(MediaTypeNames.Application.Json)]
 public class PaymentsController : ControllerBase
 {
@@ -23,6 +25,14 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpGet]
+    [SwaggerOperation(
+        Summary = "Get Payment detail given Shipment",
+        Description = "Get existing Payment associated with the specified Shipment",
+        OperationId = "GetPayments",
+        Tags = new []{"Payments"}
+    )]
+    [ProducesResponseType(typeof(IEnumerable<PaymentResource>), 200)]
+    [ProducesDefaultResponseType()]
     public async Task<IEnumerable<PaymentResource>> GetAllAsync()
     {
         var payments = await _paymentService.ListAsync();
@@ -31,6 +41,14 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Post Payment detail given Shipment",
+        Description = "Post existing Payment associated with the specified Shipment",
+        OperationId = "SetPayments",
+        Tags = new []{"Payments"}
+    )]
+    [ProducesResponseType(typeof(PaymentResource), 201)]
+    [ProducesResponseType(typeof(List<string>), 400)]
     public async Task<IActionResult> PostAsync([FromBody] SavePaymentResource resource)
     {
         if (!ModelState.IsValid)
@@ -49,6 +67,12 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [SwaggerOperation(
+        Summary = "Put Payment",
+        Description = "Put existing Payment associated with the specified Shipment",
+        OperationId = "SetPayments",
+        Tags = new []{"Payments"}
+    )]
     public async Task<IActionResult> PutAsync(int id, [FromBody] SavePaymentResource resource)
     {
         if (!ModelState.IsValid)
@@ -67,6 +91,12 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [SwaggerOperation(
+        Summary = "Delete Payment",
+        Description = "Delete exiting payment in database",
+        OperationId = "SetPayments",
+        Tags = new []{"Payments"}
+    )]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         var result = await _paymentService.DeleteAsync(id);
