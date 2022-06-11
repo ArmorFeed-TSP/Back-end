@@ -27,7 +27,6 @@ public class PaymentsController : ControllerBase
     {
         var payments = await _paymentService.ListAsync();
         var resources = _mapper.Map<IEnumerable<Payment>, IEnumerable<PaymentResource>>(payments);
-
         return resources;
     }
 

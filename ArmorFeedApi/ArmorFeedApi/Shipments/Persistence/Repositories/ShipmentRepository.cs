@@ -46,7 +46,7 @@ public class ShipmentRepository: BaseRepository, IShipmentRepository
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Shipment>> FindByCustomerId(int customerId)
+    public async Task<IEnumerable<Shipment>> FindByCustomerId(int customerId) 
     {
         return await _context.Shipments
             .Where(s => s.CostumerId == customerId)
