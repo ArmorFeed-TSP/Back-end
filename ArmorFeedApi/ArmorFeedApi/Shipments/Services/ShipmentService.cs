@@ -22,6 +22,11 @@ public class ShipmentService: IShipmentService
         return await _shipmentRepository.ListAsync();
     }
 
+    public async Task<Shipment> GetByIdAsync(int id)
+    {
+        return await _shipmentRepository.FindByIdAsync(id);
+    }
+
     public async Task<IEnumerable<Shipment>> ListByEnterpriseId(int enterpriseId)
     {
         return await _shipmentRepository.FindByEnterpriseId(enterpriseId);
@@ -55,11 +60,8 @@ public class ShipmentService: IShipmentService
             return new ShipmentResponse("Shipment not found");
 
         existingShipment.DeliveryDate = shipment.DeliveryDate;
-        existingShipment.DestinationCity = shipment.DestinationCity;
-        existingShipment.OriginCity = shipment.OriginCity;
-        existingShipment.ShipmentStatus = shipment.ShipmentStatus;
-        existingShipment.PickUpDate = shipment.PickUpDate;
-        
+        existingShipment.Status = shipment.Status;
+
         try
         {
             _shipmentRepository.Update(existingShipment);

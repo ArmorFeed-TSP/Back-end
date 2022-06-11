@@ -13,7 +13,6 @@ public class PaymentRepository: BaseRepository, IPaymentRepository
     public async Task<IEnumerable<Payment>> ListAsync()
     {
         return await _context.Payments
-            .Include(p => p.Shipment)
             .ToListAsync();
     }
 

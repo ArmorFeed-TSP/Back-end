@@ -6,6 +6,7 @@ namespace ArmorFeedApi.Shipments.Domain.Services;
 public interface IShipmentService
 {
     Task<IEnumerable<Shipment>> ListAsync();
+    Task<Shipment> GetByIdAsync(int id);
     Task<ShipmentResponse> SaveAsync(Shipment category);
     Task<ShipmentResponse> UpdateAsync(int id, Shipment category);
     Task<ShipmentResponse> DeleteAsync(int id);

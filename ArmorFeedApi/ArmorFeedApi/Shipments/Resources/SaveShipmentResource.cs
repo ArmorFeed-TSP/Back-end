@@ -6,12 +6,44 @@ public class SaveShipmentResource
 {
     [Required]
     [MaxLength(50)]
-    public string OriginCity { get; set; }
+    public string Origin { get; set; }
+    
+    [Required]
+    [MaxLength(100)]
+    public string OriginTypeAddress { get; set; }
+    
+    [Required]
+    [MaxLength(150)]
+    public string OriginAddress { get; set; }
     
     [Required]
     [MaxLength(50)]
-    public string DestinationCity { get; set; }
+    public string OriginUrbanization { get; set; }
     
+    [Required]
+    [MaxLength(50)]
+    public string OriginReference { get; set; }
+    
+    [Required]
+    [MaxLength(50)]
+    public string Destiny { get; set; }
+    
+    [Required]
+    [MaxLength(100)]
+    public string DestinyTypeAddress { get; set; }
+    
+    [Required]
+    [MaxLength(150)]
+    public string DestinyAddress { get; set; }
+    
+    [Required]
+    [MaxLength(50)]
+    public string DestinyUrbanization { get; set; }
+    
+    [Required]
+    [MaxLength(50)]
+    public string DestinyReference { get; set; }
+
     [Required]
     [DataType(DataType.Date)]
     [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
@@ -23,8 +55,11 @@ public class SaveShipmentResource
     public DateTime DeliveryDate { get; set; }
     
     [Required]
-    public int ShipmentStatus { get; set; }
+    public int Status { get; set; }
     
     [Required]
     public int EnterpriseId { get; set; }
+    
+    [Required]
+    public int CustomerId { get; set; }
 }

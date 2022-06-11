@@ -7,10 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ArmorFeedApi.Shipments.Controllers;
 
-[ApiController]
-[Route("/api/v1/[controller]")]
-[Produces(MediaTypeNames.Application.Json)]
-public class ShipmentsEnterpriseController: ControllerBase
+public class ShipmentsEnterpriseController
 {
     private readonly IShipmentService _shipmentService;
     private readonly IMapper _mapper;
