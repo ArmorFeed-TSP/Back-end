@@ -13,7 +13,6 @@ public class ModelToResourceProfile: Profile
     {
         CreateMap<Enterprise,EnterpriseResource>();
         CreateMap<Vehicle, VehicleResource>();
-        CreateMap<Shipment, ShipmentResource>();
-        CreateMap<ShipmentReview, ShipmentReviewResource>();
+
     }
 }

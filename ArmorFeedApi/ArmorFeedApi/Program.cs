@@ -61,10 +61,6 @@ builder.Services.AddRouting(options =>
 
 // Dependency Injection Configuration ArmorFeed
 
-builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
-builder.Services.AddScoped<IShipmentService, ShipmentService>();
-builder.Services.AddScoped<IShipmentReviewRepository, ShipmentReviewRepository>();
-builder.Services.AddScoped<IShipmentReviewService, ShipmentReviewService>();
 builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
 builder.Services.AddScoped<IEnterpriseService, EnterpriseService>();
 
