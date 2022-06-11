@@ -7,8 +7,11 @@ namespace ArmorFeedApi.Vehicles.Domain.Services;
 public interface IVehicleService
 {
     Task<IEnumerable<Vehicle>> ListAsync();
-    Task<IEnumerable<Vehicle>> ListByEnterpriseIdAsync(int enterpriseId);
+
+    Task<IEnumerable<Vehicle>> ListByEnterpriseAsync(int enterpriseId);
+
+    Task<Vehicle> FindByIdAsync(int id);
     Task<VehicleResponse> SaveAsync(Vehicle vehicle);
-    Task<VehicleResponse> UpdateAsync(int vehicleId, Vehicle vehicle);
-    Task<VehicleResponse> DeleteAsync(int vehicleId);
+    Task<VehicleResponse> UpdateAsync(int id, Vehicle vehicle);
+    Task<VehicleResponse> DeleteAsync(int id);
 }

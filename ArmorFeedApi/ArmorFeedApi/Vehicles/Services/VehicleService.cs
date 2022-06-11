@@ -9,113 +9,104 @@ using ArmorFeedApi.Vehicles.Domain.Services.Communication;
 
 namespace ArmorFeedApi.Vehicles.Services;
 
-public class VehicleService:IVehicleService
-{
-    private readonly IVehicleRepository _vehicleRepository;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IEnterpriseRepository _enterpriseRepository;
-    
-
-    public VehicleService(IVehicleRepository vehicleRepository, IUnitOfWork unitOfWork,IEnterpriseRepository enterpriseRepository)
+ public class VehicleService : IVehicleService
     {
-        _vehicleRepository = vehicleRepository;
-        _unitOfWork = unitOfWork;
-        _enterpriseRepository = enterpriseRepository;
-    }
+        private readonly IVehicleRepository _vehicleRepository;
+       
+        private readonly IEnterpriseRepository _enterpriseRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
+        public VehicleService(IVehicleRepository vehicleRepository, IEnterpriseRepository enterpriseRepository, IUnitOfWork unitOfWork)
+        {
+            _vehicleRepository = vehicleRepository;
+            
+            _enterpriseRepository = enterpriseRepository;
+            _unitOfWork = unitOfWork;
+        }
 
-    public async Task<IEnumerable<Vehicle>> ListAsync()
-    {
-        return await _vehicleRepository.ListAsync();
-    }
-
-    public async Task<IEnumerable<Vehicle>>ListByEnterpriseIdAsync(int enterpriseId)
-    {
-        return await _vehicleRepository.FindByEnterpriseIdAsync(enterpriseId);
-    }
-
-    public async Task<VehicleResponse> SaveAsync(Vehicle vehicle)
-    {
-
-        var existingEnterprise = _enterpriseRepository.FindByIdAsync(vehicle.EnterpriseId);
-
-        if (existingEnterprise == null)
-            return new VehicleResponse("Invalid Enterprise");
+        public async Task<IEnumerable<Vehicle>> ListAsync()
+        {
+            return await _vehicleRepository.ListAsync();
+        }
         
-
-        var existingVehicleWithBrand = await _vehicleRepository.FindByBrandAsync(vehicle.Brand);
-
-        if (existingVehicleWithBrand != null)
-            return new VehicleResponse("Vehicle License Plate already exists");
-
-        try
+        public async Task<IEnumerable<Vehicle>> ListByEnterpriseAsync(int enterpriseId)
         {
-            await _vehicleRepository.AddAsync(vehicle);
-            await _unitOfWork.CompleteAsync();
-
-            return new VehicleResponse(vehicle);
-        }
-        catch (Exception e)
-        {
-            return new VehicleResponse($"An error occurred while saving the vehicle: {e.Message}");
+            return await _vehicleRepository.FindByEnterpriseId(enterpriseId);
         }
 
+      
+
+        public async Task<Vehicle> FindByIdAsync(int id)
+        {
+            var vehicle = await _vehicleRepository.FindByIdAsync(id);
+            return vehicle;
+        }
+
+        public async Task<VehicleResponse> SaveAsync(Vehicle vehicle)
+        {
+            
+            var existingEnterprise = await _enterpriseRepository.FindByIdAsync(vehicle.EnterpriseId);
+            if (existingEnterprise == null)
+            {
+                return new VehicleResponse("Enterprise not found.");
+            }
+            
+            try
+            {
+                await _vehicleRepository.AddAsync(vehicle);
+                await _unitOfWork.CompleteAsync();
+                return new VehicleResponse(vehicle);
+            }
+            catch (Exception e)
+            {
+                return new VehicleResponse($"An error occurred while saving the vehicle: {e.Message}");
+            }
+        }
+
+        public async Task<VehicleResponse> UpdateAsync(int id, Vehicle vehicle)
+        {
+            var existingVehicle = await _vehicleRepository.FindByIdAsync(id);
+            if (existingVehicle == null)
+            {
+                return new VehicleResponse("Vehicle not found");
+            }
+
+            existingVehicle.Brand = vehicle.Brand;
+            existingVehicle.LicensePlate = vehicle.LicensePlate;
+            existingVehicle.Year= vehicle.Year;
+            existingVehicle.Model = vehicle.Model;
+            existingVehicle.MaintenanceDate= vehicle.MaintenanceDate;
+            existingVehicle.VehicleType = vehicle.VehicleType;
+
+            try
+            {
+                _vehicleRepository.Update(existingVehicle);
+                await _unitOfWork.CompleteAsync();
+                return new VehicleResponse(existingVehicle);
+            }
+            catch (Exception e)
+            {
+                return new VehicleResponse($"An error occurred while updating the vehicle: {e.Message}");
+            }
+        }
+
+        public async Task<VehicleResponse> DeleteAsync(int id)
+        {
+            var existingVehicle = await _vehicleRepository.FindByIdAsync(id);
+            if (existingVehicle == null)
+            {
+                return new VehicleResponse("Vehicle not found");
+            }
+
+            try
+            {
+                _vehicleRepository.Remove(existingVehicle);
+                await _unitOfWork.CompleteAsync();
+                return new VehicleResponse(existingVehicle);
+            }
+            catch (Exception e)
+            {
+                return new VehicleResponse($"An error occurred while deleting the vehicle: {e.Message}");
+            }
+        }
     }
-
-    public async Task<VehicleResponse> UpdateAsync(int vehicleId, Vehicle vehicle)
-    {
-        var existingVehicle = await _vehicleRepository.FindByIdAsync(vehicleId);
-        
-
-        if (existingVehicle == null)
-            return new VehicleResponse("Vehicle not found.");
-
-
-        var existingEnterprise = _enterpriseRepository.FindByIdAsync(vehicle.EnterpriseId);
-
-        if (existingEnterprise == null)
-            return new VehicleResponse("Invalid Enterprise");
-
-// Validate Title
-
-        var existingVehicleWithLicensePlate = await _vehicleRepository.FindByBrandAsync(vehicle.LicensePlate);
-
-        if (existingVehicleWithLicensePlate != null && existingVehicleWithLicensePlate.Id!=existingVehicle.Id)
-            return new VehicleResponse("Vehicle LicensePlate already exists");
-        
-        existingVehicle.LicensePlate= vehicle.LicensePlate;
-        existingVehicle.EnterpriseId = vehicle.EnterpriseId;
-
-        try
-        {
-            _vehicleRepository.Update(existingVehicle);
-            await _unitOfWork.CompleteAsync();
-
-            return new VehicleResponse(existingVehicle);
-        }
-        catch (Exception e)
-        {
-            return new VehicleResponse($"An error occurred while updating the vehicle: {e.Message}");
-        }
-    }
-
-    public async Task<VehicleResponse> DeleteAsync(int vehicleId)
-    {
-        var existingVehicle = await _vehicleRepository.FindByIdAsync(vehicleId);
-
-        if (existingVehicle == null)
-            return new VehicleResponse("Vehicle not found.");
-
-        try
-        {
-            _vehicleRepository.Remove(existingVehicle);
-            await _unitOfWork.CompleteAsync();
-
-            return new VehicleResponse(existingVehicle);
-        }
-        catch (Exception e)
-        {
-            return new VehicleResponse($"An error occurred while deleting the vehicle: {e.Message}");
-        }
-    }
-}

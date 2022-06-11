@@ -1,5 +1,5 @@
 ﻿
-using LearningCenter.API.Learning.Resources;
+using ArmorFeedApi.Shipments.Resources;
 
 namespace ArmorFeedApi.Vehicles.Resources;
 
@@ -12,6 +12,6 @@ public class VehicleResource
     public string Model { get; set; }
     public string MaintenanceDate { get; set; }
     public string VehicleType { get; set; }
-    public EnterpriseResource Enterprise { get; set; }
-    
+    public EnterpriseResource Enterprise;
+
 }

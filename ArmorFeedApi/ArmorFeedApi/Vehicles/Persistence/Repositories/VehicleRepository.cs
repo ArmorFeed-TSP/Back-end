@@ -13,38 +13,30 @@ public class VehicleRepository: BaseRepository, IVehicleRepository
     public VehicleRepository(AppDbContext context) : base(context)
     {
     }
-
     public async Task<IEnumerable<Vehicle>> ListAsync()
     {
         return await _context.Vehicles.ToListAsync();
-
     }
+    
+    public async Task<IEnumerable<Vehicle>> FindByEnterpriseId(int id)
+    {
+        return await _context.Vehicles
+            .Where(p => p.EnterpriseId == id)
+            .Include(p => p.Enterprise)
+            .ToListAsync();
+    }
+    
 
     public async Task AddAsync(Vehicle vehicle)
     {
         await _context.Vehicles.AddAsync(vehicle);
     }
 
-    public async Task<Vehicle> FindByIdAsync(int vehicleId)
+    public async Task<Vehicle> FindByIdAsync(int id)
     {
-        return await _context.Vehicles.FindAsync(vehicleId);
+        return await _context.Vehicles.FindAsync(id);
     }
 
-    public async Task<Vehicle> FindByBrandAsync(string licensePlate)
-    {
-        return await _context.Vehicles
-            .Include(p => p.Enterprise)
-            .FirstOrDefaultAsync(p => p.LicensePlate == licensePlate);
-    }
-    
-    public async Task<IEnumerable<Vehicle>> FindByEnterpriseIdAsync(int enterpriseId)
-    {
-        return await _context.Vehicles
-            .Where(p => p.EnterpriseId == enterpriseId)
-            .Include(p => p.Enterprise)
-            .ToListAsync();
-    }
-    
     public void Update(Vehicle vehicle)
     {
         _context.Vehicles.Update(vehicle);
@@ -54,4 +46,5 @@ public class VehicleRepository: BaseRepository, IVehicleRepository
     {
         _context.Vehicles.Remove(vehicle);
     }
+   
 }

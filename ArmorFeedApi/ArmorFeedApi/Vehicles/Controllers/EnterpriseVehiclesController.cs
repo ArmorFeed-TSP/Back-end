@@ -23,7 +23,7 @@ public class EnterpriseVehiclesController: ControllerBase
     [HttpGet]
     public async Task<IEnumerable<VehicleResource>> GetAllByEnterpriseId(int enterpriseId)
     {
-        var vehicles = await _vehicleService.ListByEnterpriseIdAsync(enterpriseId);
+        var vehicles = await _vehicleService.ListByEnterpriseAsync(enterpriseId);
         var resources = _mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
         return resources;
     }
