@@ -6,7 +6,7 @@ using AutoMapper;
 
 namespace ArmorFeedApi.Shipments.Services;
 
-public class ShipmentReviewService: IShipmentService
+public class ShipmentReviewService: IShipmentReviewService
 {
     private readonly IShipmentReviewRepository _shipmentReviewRepository;
     private readonly IMapper _mapper;
@@ -17,32 +17,47 @@ public class ShipmentReviewService: IShipmentService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<Shipment>> ListAsync()
-    {
-        throw new NotImplementedException();
-    }
-    
-    public async Task<ShipmentResponse> SaveAsync(Shipment category)
+    public async Task<IEnumerable<ShipmentReview>> ListAsync()
     {
         throw new NotImplementedException();
     }
 
-    public async Task<ShipmentResponse> UpdateAsync(int id, Shipment category)
+    public Task<ShipmentReviewResponse> SaveAsync(ShipmentReview category)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<ShipmentResponse> DeleteAsync(int id)
+    public Task<ShipmentReviewResponse> UpdateAsync(int id, ShipmentReview category)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Shipment>> ListByEnterpriseId(int enterpriseId)
+    public async Task<ShipmentReviewResponse> SaveAsync(Shipment category)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<Shipment>> ListByCustomerId(int customerId)
+    public async Task<ShipmentReviewResponse> UpdateAsync(int id, Shipment category)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<ShipmentReviewResponse> DeleteAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<ShipmentReview>> ListByShipmentId(int shipmentId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<ShipmentReview>> ListByEnterpriseId(int enterpriseId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<IEnumerable<ShipmentReview>> ListByCustomerId(int customerId)
     {
         throw new NotImplementedException();
     }
