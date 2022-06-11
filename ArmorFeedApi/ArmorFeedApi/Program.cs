@@ -34,7 +34,6 @@ builder.Services.AddSwaggerGen(options =>
         });
         options.EnableAnnotations();
     });
-
 // Add Database Connection
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

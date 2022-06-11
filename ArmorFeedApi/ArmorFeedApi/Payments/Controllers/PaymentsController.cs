@@ -5,12 +5,14 @@ using ArmorFeedApi.Payments.Resources;
 using ArmorFeedApi.Shared.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ArmorFeedApi.Payments.Controllers;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
+[SwaggerTag("Create and read Payments")]
 public class PaymentsController : ControllerBase
 {
     private readonly IPaymentService _paymentService;
@@ -23,6 +25,14 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpGet]
+    [SwaggerOperation(
+        Summary = "Get Payment detail given Shipment",
+        Description = "Get existing Payment associated with the specified Shipment",
+        OperationId = "GetPayments",
+        Tags = new []{"Payments"}
+    )]
+    [ProducesResponseType(typeof(IEnumerable<PaymentResource>), 200)]
+    [ProducesDefaultResponseType()]
     public async Task<IEnumerable<PaymentResource>> GetAllAsync()
     {
         var payments = await _paymentService.ListAsync();
@@ -32,6 +42,14 @@ public class PaymentsController : ControllerBase
     }
 
     [HttpPost]
+    [SwaggerOperation(
+        Summary = "Post Payment detail given Shipment",
+        Description = "Post existing Payment associated with the specified Shipment",
+        OperationId = "SetPayments",
+        Tags = new []{"Payments"}
+    )]
+    [ProducesResponseType(typeof(PaymentResource), 201)]
+    [ProducesResponseType(typeof(List<string>), 400)]
     public async Task<IActionResult> PostAsync([FromBody] SavePaymentResource resource)
     {
         if (!ModelState.IsValid)
@@ -48,36 +66,5 @@ public class PaymentsController : ControllerBase
 
         return Ok(paymentResource);
     }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutAsync(int id, [FromBody] SavePaymentResource resource)
-    {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState.GetErrorMessages());
-
-        var payment = _mapper.Map<SavePaymentResource, Payment>(resource);
-
-        var result = await _paymentService.UpdateAsync(id, payment);
-
-        if (!result.Success)
-            return BadRequest(result.Message);
-
-        var paymentResource = _mapper.Map<Payment, PaymentResource>(result.Resource);
-
-        return Ok(paymentResource);
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(int id)
-    {
-        var result = await _paymentService.DeleteAsync(id);
-
-        if (!result.Success)
-            return BadRequest(result.Message);
-
-        var paymentResource = _mapper.Map<Payment, PaymentResource>(result.Resource);
-
-        return Ok(paymentResource);
-
-    }
+    
 }
