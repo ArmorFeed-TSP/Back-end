@@ -1,12 +1,10 @@
-﻿
-
+﻿using ArmorFeedApi.Enterprises.Domain.Models;
+using ArmorFeedApi.Enterprises.Domain.Repositories;
 using ArmorFeedApi.Shared.Persistence.Contexts;
 using ArmorFeedApi.Shared.Persistence.Repositories;
-using ArmorFeedApi.Shipments.Domain.Models;
-using ArmorFeedApi.Shipments.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace ArmorFeedApi.Shipments.Persistence.Repositories;
+namespace ArmorFeedApi.Enterprises.Persistence.Repositories;
 
 public class EnterpriseRepository: BaseRepository, IEnterpriseRepository
 {

@@ -1,6 +1,6 @@
 ﻿
+using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Shared.Extensions;
-using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Vehicles.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 

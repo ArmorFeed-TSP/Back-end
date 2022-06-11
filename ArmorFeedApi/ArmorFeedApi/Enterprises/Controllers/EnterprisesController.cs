@@ -1,12 +1,12 @@
 ﻿using System.Net.Mime;
+using ArmorFeedApi.Enterprises.Domain.Models;
+using ArmorFeedApi.Enterprises.Domain.Services;
+using ArmorFeedApi.Enterprises.Resources;
 using ArmorFeedApi.Shared.Extensions;
-using ArmorFeedApi.Shipments.Domain.Models;
-using ArmorFeedApi.Shipments.Domain.Services;
-using ArmorFeedApi.Shipments.Resources;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ArmorFeedApi.Shipments.Controllers;
+namespace ArmorFeedApi.Enterprises.Controllers;
 
 [ApiController]
 [Route("/api/v1/[controller]")]

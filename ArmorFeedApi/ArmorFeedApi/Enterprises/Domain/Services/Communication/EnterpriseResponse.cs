@@ -1,8 +1,7 @@
-﻿
+﻿using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Shared.Domain.Services.Communication;
-using ArmorFeedApi.Shipments.Domain.Models;
 
-namespace ArmorFeedApi.Shipments.Domain.Services.Communication;
+namespace ArmorFeedApi.Enterprises.Domain.Services.Communication;
 
 public class EnterpriseResponse: BaseResponse<Enterprise>
 {

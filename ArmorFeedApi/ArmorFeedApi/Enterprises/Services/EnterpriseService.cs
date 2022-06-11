@@ -1,12 +1,10 @@
-﻿
-
+﻿using ArmorFeedApi.Enterprises.Domain.Models;
+using ArmorFeedApi.Enterprises.Domain.Repositories;
+using ArmorFeedApi.Enterprises.Domain.Services;
+using ArmorFeedApi.Enterprises.Domain.Services.Communication;
 using ArmorFeedApi.Shared.Domain.Repositories;
-using ArmorFeedApi.Shipments.Domain.Models;
-using ArmorFeedApi.Shipments.Domain.Repositories;
-using ArmorFeedApi.Shipments.Domain.Services;
-using ArmorFeedApi.Shipments.Domain.Services.Communication;
 
-namespace ArmorFeedApi.Shipments.Services;
+namespace ArmorFeedApi.Enterprises.Services;
 
 public class EnterpriseService:IEnterpriseService
 {

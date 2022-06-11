@@ -1,8 +1,8 @@
 ﻿
 
-using ArmorFeedApi.Shipments.Domain.Models;
+using ArmorFeedApi.Enterprises.Domain.Models;
 
-namespace ArmorFeedApi.Shipments.Domain.Repositories;
+namespace ArmorFeedApi.Enterprises.Domain.Repositories;
 
 public interface IEnterpriseRepository
 {

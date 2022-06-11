@@ -1,7 +1,7 @@
 ﻿
 
+using ArmorFeedApi.Enterprises.Domain.Repositories;
 using ArmorFeedApi.Shared.Domain.Repositories;
-using ArmorFeedApi.Shipments.Domain.Repositories;
 using ArmorFeedApi.Vehicles.Domain.Models;
 using ArmorFeedApi.Vehicles.Domain.Repositories;
 using ArmorFeedApi.Vehicles.Domain.Services;

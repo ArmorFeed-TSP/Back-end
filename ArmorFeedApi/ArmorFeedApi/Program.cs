@@ -1,13 +1,15 @@
 
 
+
+
+using ArmorFeedApi.Enterprises.Domain.Repositories;
+using ArmorFeedApi.Enterprises.Domain.Services;
+using ArmorFeedApi.Enterprises.Persistence.Repositories;
+using ArmorFeedApi.Enterprises.Services;
 using ArmorFeedApi.Shared.Domain.Repositories;
 using ArmorFeedApi.Shared.Mapping;
 using ArmorFeedApi.Shared.Persistence.Contexts;
 using ArmorFeedApi.Shared.Persistence.Repositories;
-using ArmorFeedApi.Shipments.Domain.Repositories;
-using ArmorFeedApi.Shipments.Domain.Services;
-using ArmorFeedApi.Shipments.Persistence.Repositories;
-using ArmorFeedApi.Shipments.Services;
 using ArmorFeedApi.Vehicles.Domain.Repositories;
 using ArmorFeedApi.Vehicles.Domain.Services;
 using ArmorFeedApi.Vehicles.Persistence.Repositories;

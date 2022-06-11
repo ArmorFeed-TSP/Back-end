@@ -1,6 +1,6 @@
 ﻿
 
-using ArmorFeedApi.Shipments.Domain.Models;
+using ArmorFeedApi.Enterprises.Domain.Models;
 
 namespace ArmorFeedApi.Vehicles.Domain.Models;
 

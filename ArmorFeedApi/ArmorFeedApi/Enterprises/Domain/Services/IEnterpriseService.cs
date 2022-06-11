@@ -1,9 +1,7 @@
-﻿
+﻿using ArmorFeedApi.Enterprises.Domain.Models;
+using ArmorFeedApi.Enterprises.Domain.Services.Communication;
 
-using ArmorFeedApi.Shipments.Domain.Models;
-using ArmorFeedApi.Shipments.Domain.Services.Communication;
-
-namespace ArmorFeedApi.Shipments.Domain.Services;
+namespace ArmorFeedApi.Enterprises.Domain.Services;
 
 public interface IEnterpriseService
 {

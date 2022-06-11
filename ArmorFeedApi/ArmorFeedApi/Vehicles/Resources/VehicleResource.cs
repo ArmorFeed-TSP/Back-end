@@ -1,5 +1,5 @@
 ﻿
-using ArmorFeedApi.Shipments.Resources;
+using ArmorFeedApi.Enterprises.Resources;
 
 namespace ArmorFeedApi.Vehicles.Resources;
 
