@@ -54,11 +54,12 @@ public class AppDbContext: DbContext
         builder.Entity<Vehicle>().ToTable("Vehicles");
         builder.Entity<Vehicle>().HasKey(p => p.Id);
         builder.Entity<Vehicle>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<Vehicle>().Property(p => p.Brand).IsRequired().HasMaxLength(120);
-        builder.Entity<Vehicle>().Property(p => p.Year).IsRequired().HasMaxLength(120);
+        builder.Entity<Vehicle>().Property(p => p.Brand).IsRequired();
+        builder.Entity<Vehicle>().Property(p => p.Year).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.Model).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.LicensePlate).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.VehicleType).IsRequired();
+ 
         
         //Relationships
         builder.Entity<Enterprise>()
@@ -70,8 +71,8 @@ public class AppDbContext: DbContext
         builder.Entity<Enterprise>().ToTable("Enterprises");
         builder.Entity<Enterprise>().HasKey(s => s.Id);
         builder.Entity<Enterprise>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<Enterprise>().Property(s => s.Name).IsRequired().HasMaxLength(50);
-        builder.Entity<Enterprise>().Property(s => s.Ruc).IsRequired().HasMaxLength(50);
+        builder.Entity<Enterprise>().Property(s => s.Name).IsRequired();
+        builder.Entity<Enterprise>().Property(s => s.Ruc).IsRequired();
         builder.Entity<Enterprise>().Property(s => s.PhoneNumber).IsRequired();
         builder.Entity<Enterprise>().Property(s => s.Email).IsRequired();
         builder.Entity<Enterprise>().Property(s => s.PriceBase).IsRequired();
