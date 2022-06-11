@@ -2,7 +2,6 @@ using ArmorFeedApi.Payments.Domain.Model;
 using ArmorFeedApi.Payments.Domain.Repositories;
 using ArmorFeedApi.Payments.Domain.Services;
 using ArmorFeedApi.Payments.Domain.Services.Communication;
-using ArmorFeedApi.Shipments.Domain.Repositories;
 using IUnitOfWork = ArmorFeedApi.Shared.Domain.Repositories.IUnitOfWork;
 
 namespace ArmorFeedApi.Payments.Services;
@@ -10,13 +9,11 @@ namespace ArmorFeedApi.Payments.Services;
 public class PaymentService: IPaymentService
 {
     private readonly IPaymentRepository _paymentRepository;
-    private readonly IShipmentRepository _shipmentRepository;
     private readonly IUnitOfWork _unitOfWork;
     
-    public PaymentService(IPaymentRepository paymentRepository, IUnitOfWork unitOfWork, IShipmentRepository shipmentRepository)
+    public PaymentService(IPaymentRepository paymentRepository, IUnitOfWork unitOfWork)
     {
         _paymentRepository = paymentRepository;
-        _shipmentRepository = shipmentRepository;
         _unitOfWork = unitOfWork;
         
     }
@@ -33,9 +30,6 @@ public class PaymentService: IPaymentService
 
     public async Task<PaymentResponse> SaveAsync(Payment payment)
     {
-        var existingShipment = _shipmentRepository.FindByIdAsync(payment.ShipmentId);
-        if (existingShipment == null)
-            return new PaymentResponse("Invalid Payment");
         try
         {
             await _paymentRepository.AddAsync(payment);
@@ -53,15 +47,10 @@ public class PaymentService: IPaymentService
         var existingPayment = await _paymentRepository.FindByIdAsync(paymentId);
         if (existingPayment == null)
             return new PaymentResponse("Payment not found.");
-        
-        var existingShipment = await _shipmentRepository.FindByIdAsync(payment.ShipmentId);
-        if (existingShipment == null)
-            return new PaymentResponse("Invalid Payment");
 
         existingPayment.Amount = payment.Amount;
         existingPayment.Currency = payment.Currency;
         existingPayment.PaymentDate = payment.PaymentDate;
-        existingPayment.ShipmentId = payment.ShipmentId;
         try
         {
             _paymentRepository.Update(existingPayment);

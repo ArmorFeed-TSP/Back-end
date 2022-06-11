@@ -5,11 +5,15 @@ using ArmorFeedApi.Payments.Services;
 using ArmorFeedApi.Shared.Mapping;
 using ArmorFeedApi.Shared.Persistence.Contexts;
 using ArmorFeedApi.Shared.Persistence.Repositories;
-using ArmorFeedApi.Shipments.Domain.Repositories;
-using ArmorFeedApi.Shipments.Domain.Services;
-using ArmorFeedApi.Shipments.Persistence.Repositories;
-using ArmorFeedApi.Shipments.Services;
 using Microsoft.EntityFrameworkCore;
+using ArmorFeedApi.Enterprises.Domain.Repositories;
+using ArmorFeedApi.Enterprises.Domain.Services;
+using ArmorFeedApi.Enterprises.Persistence.Repositories;
+using ArmorFeedApi.Enterprises.Services;
+using ArmorFeedApi.Vehicles.Domain.Repositories;
+using ArmorFeedApi.Vehicles.Domain.Services;
+using ArmorFeedApi.Vehicles.Persistence.Repositories;
+using ArmorFeedApi.Vehicles.Services;
 
 
 using Microsoft.OpenApi.Models;
@@ -63,10 +67,11 @@ builder.Services.AddRouting(options =>
 
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
-builder.Services.AddScoped<IShipmentService, ShipmentService>();
-builder.Services.AddScoped<IShipmentReviewRepository, ShipmentReviewRepository>();
-builder.Services.AddScoped<IShipmentReviewService, ShipmentReviewService>();
+builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
+builder.Services.AddScoped<IEnterpriseService, EnterpriseService>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // AutoMapper Configuration

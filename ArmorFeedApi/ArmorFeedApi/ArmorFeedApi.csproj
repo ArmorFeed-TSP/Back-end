@@ -23,8 +23,6 @@
       <Folder Include="Profile\Controllers" />
       <Folder Include="Profile\Domain\Repositories" />
       <Folder Include="Profile\Domain\Services" />
-      <Folder Include="Shipments\Mapping" />
-      <Folder Include="Shipments\Persistence\Contexts" />
     </ItemGroup>
 
 </Project>
