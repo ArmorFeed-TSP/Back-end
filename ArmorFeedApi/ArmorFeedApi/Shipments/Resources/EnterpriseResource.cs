@@ -1,5 +1,6 @@
 ﻿
-namespace LearningCenter.API.Learning.Resources;
+
+namespace ArmorFeedApi.Shipments.Resources;
 
 public class EnterpriseResource
 {

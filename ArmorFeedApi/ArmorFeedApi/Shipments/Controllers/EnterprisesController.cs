@@ -1,16 +1,15 @@
-﻿
-
-using System.Net.Mime;
+﻿using System.Net.Mime;
 using ArmorFeedApi.Shared.Extensions;
 using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Shipments.Domain.Services;
+using ArmorFeedApi.Shipments.Resources;
 using AutoMapper;
-using LearningCenter.API.Learning.Resources;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArmorFeedApi.Shipments.Controllers;
 
-[Route("/api/v1/[controller]")] 
+[ApiController]
+[Route("/api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 public class EnterprisesController: ControllerBase
 {
