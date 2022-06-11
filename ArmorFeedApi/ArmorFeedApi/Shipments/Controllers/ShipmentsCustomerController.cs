@@ -1,4 +1,5 @@
-﻿using ArmorFeedApi.Shipments.Domain.Models;
+﻿using System.Net.Mime;
+using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Shipments.Domain.Services;
 using ArmorFeedApi.Shipments.Resources;
 using AutoMapper;
@@ -7,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace ArmorFeedApi.Shipments.Controllers;
 
 [ApiController]
-[Route("/api/v1/shipments?customerId={customerId}")]
+[Route("/api/v1/customers/{customerId}/shipments")]
+[Produces(MediaTypeNames.Application.Json)]
 public class ShipmentsCustomerController
 {
     private readonly IShipmentService _shipmentService;

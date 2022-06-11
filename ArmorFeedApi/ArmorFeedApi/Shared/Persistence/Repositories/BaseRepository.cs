@@ -1,6 +1,6 @@
-﻿using ArmorFeedApi.Shipments.Persistence.Contexts;
+﻿using ArmorFeedApi.Shared.Persistence.Contexts;
 
-namespace ArmorFeedApi.Shipments.Persistence.Repositories;
+namespace ArmorFeedApi.Shared.Persistence.Repositories;
 
 public class BaseRepository
 {
