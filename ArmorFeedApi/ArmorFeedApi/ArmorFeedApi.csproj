@@ -28,7 +28,6 @@
       <Folder Include="Security\Domain\Services\Communication" />
       <Folder Include="Security\Mapping" />
       <Folder Include="Security\Persistence" />
-      <Folder Include="Security\Resources" />
       <Folder Include="Security\Services" />
     </ItemGroup>
 
