@@ -8,6 +8,7 @@ public class RegisterRequest
                public byte[] Photo { get; set; }
     [Required] public string Ruc { get; set; }
     [Required] public string PhoneNumber { get; set; }
+    [Required] public string Description { get; set; }
     [Required] public string Email { get; set; }
     [Required] public string Password { get; set; }
 }

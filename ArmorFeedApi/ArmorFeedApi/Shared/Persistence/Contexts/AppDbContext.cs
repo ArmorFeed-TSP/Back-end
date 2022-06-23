@@ -1,5 +1,6 @@
 ﻿using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Payments.Domain.Model;
+using ArmorFeedApi.Security.Domain.Models;
 using ArmorFeedApi.Shared.Extensions;
 using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Vehicles.Domain.Models;
@@ -18,11 +19,13 @@ public class AppDbContext: DbContext
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Enterprise> Enterprises { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        
+
+        #region Payments
         //Payments
         builder.Entity<Payment>().ToTable("Payments");
         builder.Entity<Payment>().HasKey(p => p.Id);
@@ -30,6 +33,10 @@ public class AppDbContext: DbContext
         builder.Entity<Payment>().Property(p => p.Amount).IsRequired();
         builder.Entity<Payment>().Property(p => p.Currency).IsRequired().HasMaxLength(20);
 
+        #endregion
+
+        #region Enterprises
+        
         //Enterprises
         builder.Entity<Enterprise>().ToTable("Enterprises");
         builder.Entity<Enterprise>().HasKey(s => s.Id);
@@ -53,6 +60,16 @@ public class AppDbContext: DbContext
         builder.Entity<Vehicle>().Property(p => p.LicensePlate).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.VehicleType).IsRequired();
 
+        //Relationships
+        builder.Entity<Enterprise>()
+            .HasMany(p => p.Vehicles)
+            .WithOne(p => p.Enterprise)
+            .HasForeignKey(p => p.EnterpriseId);
+        
+        #endregion
+
+        #region Shipments
+
         //Shipments
         builder.Entity<Shipment>().ToTable("Shipments");
         builder.Entity<Shipment>().HasKey(s => s.Id); 
@@ -75,12 +92,24 @@ public class AppDbContext: DbContext
         builder.Entity<Shipment>().HasOne(s => s.Enterprise);
         builder.Entity<Shipment>().HasOne(s => s.Customer);
 
-        //Relationships
-        builder.Entity<Enterprise>()
-            .HasMany(p => p.Vehicles)
-            .WithOne(p => p.Enterprise)
-            .HasForeignKey(p => p.EnterpriseId);
 
+
+
+        #endregion
+
+        #region Users
+
+        builder.Entity<User>().ToTable("Users");
+        builder.Entity<User>().HasKey(p => p.Id);
+        builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(100);
+        builder.Entity<User>().Property(p => p.Photo);
+        builder.Entity<User>().Property(p => p.Ruc).IsRequired().HasMaxLength(50);
+        builder.Entity<User>().Property(p => p.PhoneNumber).IsRequired().HasMaxLength(9);
+        builder.Entity<User>().Property(p => p.Description).IsRequired();
+        builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(100);
+        
+        #endregion
         //Apply Snake Case Naming Conventios
         builder.UseSnakeCaseNamingConvention();
     }
