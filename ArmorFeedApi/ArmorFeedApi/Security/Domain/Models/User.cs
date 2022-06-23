@@ -12,5 +12,5 @@ public class User
     public string Description { get; set; }
     public string Email { get; set; }
     [JsonIgnore]
-    public string Password { get; set; }
+    public string PasswordHash { get; set; }
 }
