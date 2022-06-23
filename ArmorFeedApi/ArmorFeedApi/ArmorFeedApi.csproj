@@ -24,7 +24,6 @@
       <Folder Include="Payments\Mapping" />
       <Folder Include="Payments\Persistence\Contexts" />
       <Folder Include="Security\Authorization\Attributes" />
-      <Folder Include="Security\Authorization\Handlers" />
       <Folder Include="Security\Authorization\Middleware" />
       <Folder Include="Security\Services" />
     </ItemGroup>
