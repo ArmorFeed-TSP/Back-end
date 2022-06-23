@@ -23,20 +23,20 @@ public class UsersController: ControllerBase
     }
     [AllowAnonymous]
     [HttpPost("sign-in")]
-    public async Task<IActionResult> Authenticate(AuthenticateRequest request)
+    public async Task<IActionResult> AuthenticateAsync(AuthenticateRequest request)
     {
         var response = await _userService.Authenticate(request);
         return Ok(response);
     }
     [AllowAnonymous]
     [HttpPost("sign-up")]
-    public async Task<IActionResult> Register(RegisterRequest request)
+    public async Task<IActionResult> RegisterAsync(RegisterRequest request)
     {
         await _userService.RegisterAsync(request);
         return Ok(new { message ="Registration successful"});
     }
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAllAsync()
     {
         var users = await _userService.ListAsync();
         var resources = _mapper.Map<IEnumerable<User>, IEnumerable<UserResource>>(users);

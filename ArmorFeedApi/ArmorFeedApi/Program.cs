@@ -2,7 +2,6 @@ using ArmorFeedApi.Payments.Domain.Repositories;
 using ArmorFeedApi.Payments.Domain.Services;
 using ArmorFeedApi.Payments.Persistence.Repositories;
 using ArmorFeedApi.Payments.Services;
-using ArmorFeedApi.Shared.Mapping;
 using ArmorFeedApi.Shared.Persistence.Contexts;
 using ArmorFeedApi.Shared.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +9,13 @@ using ArmorFeedApi.Enterprises.Domain.Repositories;
 using ArmorFeedApi.Enterprises.Domain.Services;
 using ArmorFeedApi.Enterprises.Persistence.Repositories;
 using ArmorFeedApi.Enterprises.Services;
+using ArmorFeedApi.Security.Authorization.Handlers.Implementations;
+using ArmorFeedApi.Security.Authorization.Handlers.Interfaces;
+using ArmorFeedApi.Security.Authorization.Middleware;
+using ArmorFeedApi.Security.Authorization.Settings;
+using ArmorFeedApi.Security.Domain.Respositories;
+using ArmorFeedApi.Security.Domain.Services;
+using ArmorFeedApi.Security.Services;
 using ArmorFeedApi.Shipments.Domain.Repositories;
 using ArmorFeedApi.Shipments.Domain.Services;
 using ArmorFeedApi.Shipments.Persistence.Repositories;
@@ -29,10 +35,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
+//Add CORS service
+builder.Services.AddCors();
+
+//AppSettings Configuration
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
 builder.Services.AddSwaggerGen(options =>
     {
         // Add API Documentation Information
-        
         options.SwaggerDoc("v1", new OpenApiInfo
         {
             Version = "v1",
@@ -41,10 +53,26 @@ builder.Services.AddSwaggerGen(options =>
             
         });
         options.EnableAnnotations();
+        options.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            Description = "JWR Authorization header using Bearer Schema"
+        });
+        options.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id="bearerAuth"}
+             },   
+            Array.Empty<string>()
+            }
+        });
     });
 
 // Add Database Connection
-
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Database Connection with Sensitive and Detailed Information and Errors enabled
@@ -63,12 +91,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 // Add lowercase routes
-
 builder.Services.AddRouting(options => 
     options.LowercaseUrls = true);
 
 // Dependency Injection Configuration ArmorFeed
 
+//Shared Injection Configuration
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+//ArmorFeed Injection Configuration
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
@@ -78,13 +109,18 @@ builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<IShipmentService, ShipmentService>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+//Security Injection Configuration
+builder.Services.AddScoped<IJwtHandler, JwtHandler>();
+builder.Services.AddScoped<IUserRepository, IUserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // AutoMapper Configuration
-
 builder.Services.AddAutoMapper(
-    typeof(ModelToResourceProfile),
-    typeof(ResourceToModelProfile));
+    typeof(ArmorFeedApi.Shared.Mapping.ModelToResourceProfile),
+    typeof(ArmorFeedApi.Shared.Mapping.ResourceToModelProfile),
+    typeof(ArmorFeedApi.Security.Mapping.ModelToResourceProfile),
+    typeof(ArmorFeedApi.Security.Mapping.ResourceToModelProfile));
 
 
 var app = builder.Build();
@@ -109,6 +145,19 @@ if (app.Environment.IsDevelopment())
             options.RoutePrefix = "swagger";
         });
 }
+
+//Configure CORS
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+//Configure Error Handler Middleware
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
+//Configure JWT Handling Middleware
+app.UseMiddleware<JwtMiddleware>();
+
 
 app.UseHttpsRedirection();
 
