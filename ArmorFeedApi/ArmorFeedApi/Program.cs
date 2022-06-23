@@ -15,7 +15,9 @@ using ArmorFeedApi.Security.Authorization.Middleware;
 using ArmorFeedApi.Security.Authorization.Settings;
 using ArmorFeedApi.Security.Domain.Respositories;
 using ArmorFeedApi.Security.Domain.Services;
+using ArmorFeedApi.Security.Persistence.Repositories;
 using ArmorFeedApi.Security.Services;
+using ArmorFeedApi.Shared.Domain.Repositories;
 using ArmorFeedApi.Shipments.Domain.Repositories;
 using ArmorFeedApi.Shipments.Domain.Services;
 using ArmorFeedApi.Shipments.Persistence.Repositories;
@@ -24,10 +26,7 @@ using ArmorFeedApi.Vehicles.Domain.Repositories;
 using ArmorFeedApi.Vehicles.Domain.Services;
 using ArmorFeedApi.Vehicles.Persistence.Repositories;
 using ArmorFeedApi.Vehicles.Services;
-
-
 using Microsoft.OpenApi.Models;
-using IUnitOfWork = ArmorFeedApi.Shared.Domain.Repositories.IUnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,7 +57,7 @@ builder.Services.AddSwaggerGen(options =>
             Type = SecuritySchemeType.Http,
             Scheme = "bearer",
             BearerFormat = "JWT",
-            Description = "JWR Authorization header using Bearer Schema"
+            Description = "JWR Authorization header using Bearer scheme"
         });
         options.AddSecurityRequirement(new OpenApiSecurityRequirement
         {
@@ -106,13 +105,12 @@ builder.Services.AddScoped<IEnterpriseRepository, EnterpriseRepository>();
 builder.Services.AddScoped<IEnterpriseService, EnterpriseService>();
 builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<IShipmentService, ShipmentService>();
 
-//Security Injection Configuration
+// Security Injection Configuration
 builder.Services.AddScoped<IJwtHandler, JwtHandler>();
-builder.Services.AddScoped<IUserRepository, IUserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 // AutoMapper Configuration

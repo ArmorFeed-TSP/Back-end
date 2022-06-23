@@ -55,7 +55,7 @@ public class UsersController: ControllerBase
         await _userService.UpdateAsync(id, request);
         return Ok(new { message = "User updated successfully" });
     }
-    [HttpDelete("id")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
         await _userService.DeleteAsync(id);
