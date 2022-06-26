@@ -1,3 +1,7 @@
+using ArmorFeedApi.Customers.Domain.Repositories;
+using ArmorFeedApi.Customers.Domain.Services;
+using ArmorFeedApi.Customers.Persistence.Repositories;
+using ArmorFeedApi.Customers.Services;
 using ArmorFeedApi.Payments.Domain.Repositories;
 using ArmorFeedApi.Payments.Domain.Services;
 using ArmorFeedApi.Payments.Persistence.Repositories;
@@ -78,6 +82,10 @@ builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<IShipmentService, ShipmentService>();
+
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // AutoMapper Configuration
