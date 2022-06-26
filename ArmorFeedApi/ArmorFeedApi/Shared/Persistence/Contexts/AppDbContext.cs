@@ -1,4 +1,5 @@
-﻿using ArmorFeedApi.Enterprises.Domain.Models;
+﻿using ArmorFeedApi.Customers.Domain.Models;
+using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Payments.Domain.Model;
 using ArmorFeedApi.Shared.Extensions;
 using ArmorFeedApi.Shipments.Domain.Models;
@@ -18,7 +19,7 @@ public class AppDbContext: DbContext
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Enterprise> Enterprises { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
-
+    public DbSet<Customer> Customers{ get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -43,7 +44,17 @@ public class AppDbContext: DbContext
         builder.Entity<Enterprise>().Property(s => s.ShippingTime).IsRequired();
         builder.Entity<Enterprise>().Property(s => s.Score).IsRequired();
         builder.Entity<Enterprise>().Property(s => s.Photo).IsRequired();
-        
+        //Customers
+        builder.Entity<Customer>().ToTable("Customers");
+        builder.Entity<Customer>().HasKey(s => s.Id);
+        builder.Entity<Customer>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Customer>().Property(s => s.Email).IsRequired();
+        builder.Entity<Customer>().Property(s => s.Name).IsRequired();
+        builder.Entity<Customer>().Property(s => s.PhoneNumber).IsRequired();
+        builder.Entity<Customer>().Property(s => s.Ruc).IsRequired();
+        builder.Entity<Customer>().Property(s => s.SubscriptionPlan).IsRequired();
+
+        //vehicles
         builder.Entity<Vehicle>().ToTable("Vehicles");
         builder.Entity<Vehicle>().HasKey(p => p.Id);
         builder.Entity<Vehicle>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
