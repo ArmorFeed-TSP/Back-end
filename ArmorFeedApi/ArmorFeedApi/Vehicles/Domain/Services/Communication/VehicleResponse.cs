@@ -1,6 +1,4 @@
-﻿
-
-using ArmorFeedApi.Shared.Domain.Services.Communication;
+﻿using ArmorFeedApi.Shared.Domain.Services.Communication;
 using ArmorFeedApi.Vehicles.Domain.Models;
 
 namespace ArmorFeedApi.Vehicles.Domain.Services.Communication;

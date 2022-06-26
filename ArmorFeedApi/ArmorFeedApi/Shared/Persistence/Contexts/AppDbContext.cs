@@ -1,4 +1,5 @@
-﻿using ArmorFeedApi.Customers.Domain.Models;
+﻿using ArmorFeedApi.Comments.Domain.Models;
+using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Payments.Domain.Model;
 using ArmorFeedApi.Shared.Extensions;
@@ -18,8 +19,10 @@ public class AppDbContext: DbContext
     public DbSet<Shipment> Shipments { get; set; }
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Enterprise> Enterprises { get; set; }
-    public DbSet<Vehicle> Vehicles { get; set; }
     public DbSet<Customer> Customers{ get; set; }
+    public DbSet<Vehicle> Vehicles { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -44,6 +47,7 @@ public class AppDbContext: DbContext
         builder.Entity<Enterprise>().Property(s => s.ShippingTime).IsRequired();
         builder.Entity<Enterprise>().Property(s => s.Score).IsRequired();
         builder.Entity<Enterprise>().Property(s => s.Photo).IsRequired();
+        
         //Customers
         builder.Entity<Customer>().ToTable("Customers");
         builder.Entity<Customer>().HasKey(s => s.Id);
@@ -53,8 +57,9 @@ public class AppDbContext: DbContext
         builder.Entity<Customer>().Property(s => s.PhoneNumber).IsRequired();
         builder.Entity<Customer>().Property(s => s.Ruc).IsRequired();
         builder.Entity<Customer>().Property(s => s.SubscriptionPlan).IsRequired();
-
-        //vehicles
+        
+        //Vehicles
+        
         builder.Entity<Vehicle>().ToTable("Vehicles");
         builder.Entity<Vehicle>().HasKey(p => p.Id);
         builder.Entity<Vehicle>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
@@ -63,6 +68,12 @@ public class AppDbContext: DbContext
         builder.Entity<Vehicle>().Property(p => p.Model).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.LicensePlate).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.VehicleType).IsRequired();
+        
+        builder.Entity<Comment>().ToTable("Comments");
+        builder.Entity<Comment>().HasKey(p => p.Id);
+        builder.Entity<Comment>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Comment>().Property(p => p.Title).IsRequired();
+        builder.Entity<Comment>().Property(p => p.Content).IsRequired();
 
         //Shipments
         builder.Entity<Shipment>().ToTable("Shipments");
@@ -91,6 +102,13 @@ public class AppDbContext: DbContext
             .HasMany(p => p.Vehicles)
             .WithOne(p => p.Enterprise)
             .HasForeignKey(p => p.EnterpriseId);
+        
+        
+        //RelationShips
+        builder.Entity<Shipment>()
+            .HasMany(p => p.Comments)
+            .WithOne(p => p.Shipment)
+            .HasForeignKey(p => p.ShipmentId);
 
         //Apply Snake Case Naming Conventios
         builder.UseSnakeCaseNamingConvention();

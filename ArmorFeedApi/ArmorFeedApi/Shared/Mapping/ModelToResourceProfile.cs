@@ -1,4 +1,6 @@
 
+using ArmorFeedApi.Comments.Domain.Models;
+using ArmorFeedApi.Comments.Resources;
 using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Customers.Resource;
 using ArmorFeedApi.Payments.Domain.Model;
@@ -18,7 +20,8 @@ public class ModelToResourceProfile: Profile
     {
         CreateMap<Payment, PaymentResource>();
         CreateMap<Enterprise,EnterpriseResource>();
-        CreateMap<Vehicle, VehicleResource>();
         CreateMap<Customer,CustomerResource>();
+        CreateMap<Vehicle, VehicleResource>();
+        CreateMap<Comment, CommentResource>();
     }
 }

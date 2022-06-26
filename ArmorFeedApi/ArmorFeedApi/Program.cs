@@ -1,3 +1,7 @@
+using ArmorFeedApi.Comments.Domain.Repositories;
+using ArmorFeedApi.Comments.Domain.Services;
+using ArmorFeedApi.Comments.Persistence.Repositories;
+using ArmorFeedApi.Comments.Services;
 using ArmorFeedApi.Customers.Domain.Repositories;
 using ArmorFeedApi.Customers.Domain.Services;
 using ArmorFeedApi.Customers.Persistence.Repositories;
@@ -85,6 +89,11 @@ builder.Services.AddScoped<IShipmentService, ShipmentService>();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+
+builder.Services.AddScoped<IShipmentService, ShipmentService>();
+
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
