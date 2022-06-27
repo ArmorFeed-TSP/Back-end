@@ -17,7 +17,7 @@ public class EnterprisesController: ControllerBase
 {
     private readonly IEnterpriseService _userService;
     private readonly IMapper _mapper;
-
+    
     public EnterprisesController(IEnterpriseService userService, IMapper mapper)
     {
         _userService = userService;
@@ -37,6 +37,7 @@ public class EnterprisesController: ControllerBase
         await _userService.RegisterAsync(request);
         return Ok(new { message ="Registration successful"});
     }
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
