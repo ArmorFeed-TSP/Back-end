@@ -1,4 +1,3 @@
-using ArmorFeedApi.Shipments.Resources;
 
 namespace ArmorFeedApi.Payments.Resources;
 
@@ -8,5 +7,4 @@ public class PaymentResource
    public float Amount { get; set; }
    public string Currency { get; set; }
    public string PaymentDate { get; set; }
-   public ShipmentResource Shipment { get; set; }
 }

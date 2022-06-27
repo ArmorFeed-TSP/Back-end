@@ -49,7 +49,7 @@ public class ShipmentRepository: BaseRepository, IShipmentRepository
     public async Task<IEnumerable<Shipment>> FindByCustomerId(int customerId)
     {
         return await _context.Shipments
-            .Where(s => s.CostumerId == customerId)
+            .Where(s => s.CustomerId == customerId)
             .Include(s => s.Customer)
             .ToListAsync();
     }

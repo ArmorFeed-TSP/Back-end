@@ -11,8 +11,8 @@ namespace ArmorFeedApi.Payments.Controllers;
 
 [ApiController]
 [Route("/api/v1/[controller]")]
-[Produces(MediaTypeNames.Application.Json)]
 [SwaggerTag("Create and read Payments")]
+[Produces(MediaTypeNames.Application.Json)]
 public class PaymentsController : ControllerBase
 {
     private readonly IPaymentService _paymentService;
@@ -37,7 +37,6 @@ public class PaymentsController : ControllerBase
     {
         var payments = await _paymentService.ListAsync();
         var resources = _mapper.Map<IEnumerable<Payment>, IEnumerable<PaymentResource>>(payments);
-
         return resources;
     }
 
@@ -66,5 +65,48 @@ public class PaymentsController : ControllerBase
 
         return Ok(paymentResource);
     }
-    
+
+    [HttpPut("{id}")]
+    [SwaggerOperation(
+        Summary = "Put Payment",
+        Description = "Put existing Payment associated with the specified Shipment",
+        OperationId = "SetPayments",
+        Tags = new []{"Payments"}
+    )]
+    public async Task<IActionResult> PutAsync(int id, [FromBody] SavePaymentResource resource)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState.GetErrorMessages());
+
+        var payment = _mapper.Map<SavePaymentResource, Payment>(resource);
+
+        var result = await _paymentService.UpdateAsync(id, payment);
+
+        if (!result.Success)
+            return BadRequest(result.Message);
+
+        var paymentResource = _mapper.Map<Payment, PaymentResource>(result.Resource);
+
+        return Ok(paymentResource);
+    }
+
+    [HttpDelete("{id}")]
+    [SwaggerOperation(
+        Summary = "Delete Payment",
+        Description = "Delete exiting payment in database",
+        OperationId = "SetPayments",
+        Tags = new []{"Payments"}
+    )]
+    public async Task<IActionResult> DeleteAsync(int id)
+    {
+        var result = await _paymentService.DeleteAsync(id);
+
+        if (!result.Success)
+            return BadRequest(result.Message);
+
+        var paymentResource = _mapper.Map<Payment, PaymentResource>(result.Resource);
+
+        return Ok(paymentResource);
+
+    }
 }

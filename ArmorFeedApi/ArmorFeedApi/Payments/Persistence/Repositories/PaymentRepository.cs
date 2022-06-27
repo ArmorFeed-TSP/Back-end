@@ -12,9 +12,7 @@ public class PaymentRepository: BaseRepository, IPaymentRepository
 
     public async Task<IEnumerable<Payment>> ListAsync()
     {
-        return await _context.Payments
-            .Include(p => p.Shipment)
-            .ToListAsync();
+        return await _context.Payments.ToListAsync();
     }
 
     public async Task AddAsync(Payment payment)
@@ -24,17 +22,12 @@ public class PaymentRepository: BaseRepository, IPaymentRepository
 
     public async Task<Payment> FindByIdAsync(int paymentId)
     {
-        return await _context.Payments
-            .Include(p => p.Shipment)
-            .FirstOrDefaultAsync(p => p.Id == paymentId);
+        return await _context.Payments.FirstOrDefaultAsync(p => p.Id == paymentId);
     }
 
     public async Task<IEnumerable<Payment>> FindByShipmentIdAsync(int shipmentId)
     {
-        return await _context.Payments
-            .Where(p => p.ShipmentId == shipmentId)
-            .Include(p => p.Shipment)
-            .ToListAsync();
+        return await _context.Payments.ToListAsync();
     }
 
     public void Update(Payment payment)
