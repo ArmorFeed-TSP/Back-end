@@ -1,4 +1,6 @@
 
+using ArmorFeedApi.Comments.Domain.Models;
+using ArmorFeedApi.Comments.Resources;
 using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Customers.Resource;
 using ArmorFeedApi.Payments.Domain.Model;
@@ -23,5 +25,6 @@ public class ModelToResourceProfile: Profile
         CreateMap<Vehicle, VehicleResource>();
         CreateMap<Customer,CustomerResource>();
         CreateMap<Shipment, ShipmentResource>();
+        CreateMap<Comment, CommentResource>();
     }
 }
