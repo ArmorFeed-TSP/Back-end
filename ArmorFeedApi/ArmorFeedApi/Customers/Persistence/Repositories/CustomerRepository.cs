@@ -5,21 +5,19 @@ using ArmorFeedApi.Shared.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace ArmorFeedApi.Customers.Persistence.Repositories;
-
-public class CustomerRepository: BaseRepository,ICustomerRepository
+public class CustomerRepository: BaseRepository, ICustomerRepository
 {
     public CustomerRepository(AppDbContext context) : base(context)
     {
     }
-
     public async Task<IEnumerable<Customer>> ListAsync()
     {
         return await _context.Customers.ToListAsync();
     }
 
-    public async Task AddAsync(Customer customer)
+    public async Task AddAsync(Customer user)
     {
-        await _context.Customers.AddAsync(customer);
+        await _context.Customers.AddAsync(user);
     }
 
     public async Task<Customer> FindByIdAsync(int id)
@@ -27,14 +25,28 @@ public class CustomerRepository: BaseRepository,ICustomerRepository
         return await _context.Customers.FindAsync(id);
     }
 
-    public void Update(Customer customer)
+    public async Task<Customer> FindByEmailAsync(string email)
     {
-        _context.Customers.Update(customer);
+        return await _context.Customers.SingleOrDefaultAsync(x => x.Email == email);
     }
 
-    public void Remove(Customer customer)
+    public bool ExitsByEmail(string email)
     {
-        _context.Customers.Remove(customer);
-        
+        return _context.Customers.Any(x => x.Email == email);
+    }
+
+    public Customer FindById(int id)
+    {
+        return _context.Customers.Find(id);
+    }
+
+    public void Update(Customer user)
+    {
+        _context.Customers.Update(user);
+    }
+
+    public void Remove(Customer user)
+    {
+        _context.Customers.Remove(user);
     }
 }

@@ -1,63 +1,68 @@
-﻿using System.Net.Mime;
+﻿
+using ArmorFeedApi.Customers.Authorization.Attributes;
 using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Customers.Domain.Services;
+using ArmorFeedApi.Customers.Domain.Services.Communication;
 using ArmorFeedApi.Customers.Resource;
-using ArmorFeedApi.Shared.Extensions;
+using ArmorFeedApi.Security.Domain.Services.Communication;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
+using ArmorFeedApi.Security.Authorization.Attributes;
 
 namespace ArmorFeedApi.Customers.Controller;
 
+[Authorize]
 [ApiController]
-[Route("/api/v1/[controller]")]
-[Produces(MediaTypeNames.Application.Json)]
-[SwaggerTag("Create, Read, Update and Delete Customers")]
+[Route("api/v1/[controller]")]
 public class CustomersController: ControllerBase
 {
-    private readonly ICustomerService _customerService;
+    private readonly ICustomerService _userService;
     private readonly IMapper _mapper;
 
-    public CustomersController(ICustomerService customerService, IMapper mapper)
+    public CustomersController(ICustomerService userService, IMapper mapper)
     {
-        _customerService = customerService;
+        _userService = userService;
         _mapper = mapper;
     }
-    [HttpGet]
-    [SwaggerOperation(
-        Summary = "Get All Customers",
-        Description = "Get All Customers",
-        OperationId = "GetCustomer",
-        Tags = new []{"Customers"}
-    )]
-    public async Task<IEnumerable<CustomerResource>> GetAllSync()
+    [AllowAnonymous]
+    [HttpPost("sign-in")]
+    public async Task<IActionResult> AuthenticateAsync(AuthenticateRequest request)
     {
-        var customers = await _customerService.ListAsync();
-        var resources = _mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerResource>>(customers);
-        return resources;
+        var response = await _userService.Authenticate(request);
+        return Ok(response);
     }
-    [HttpPost]
-    [SwaggerOperation(
-        Summary = "Post Customer",
-        Description = "Save Customer In Database",
-        OperationId = "PostCustomer",
-        Tags = new []{"Customers"}
-    )]
-    public async Task<IActionResult> PostAsync([FromBody] SaveCustomerResource resource)
+    [AllowAnonymous]
+    [HttpPost("sign-up")]
+    public async Task<IActionResult> RegisterAsync(RegisterCustomerRequest request)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState.GetErrorMessages());
-
-        var customer = _mapper.Map<SaveCustomerResource, Customer>(resource);
-
-        var result = await _customerService.SaveAsync(customer);
-
-        if (!result.Success)
-            return BadRequest(result.Message);
-
-        var categoryResource = _mapper.Map<Customer, CustomerResource>(result.Resource);
-
-        return Ok(categoryResource);
+        await _userService.RegisterAsync(request);
+        return Ok(new { message ="Registration successful"});
+    }
+    [HttpGet]
+    public async Task<IActionResult> GetAllAsync()
+    {
+        var users = await _userService.ListAsync();
+        var resources = _mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerResource>>(users);
+        return Ok(resources);
+    }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetByIdAsync(int id)
+    {
+        var user = await _userService.GetByIdAsync(id);
+        var resource = _mapper.Map<Customer, CustomerResource>(user);
+        return Ok(resource);
+    }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateAsync(int id, UpdateCustomerRequest request)
+    {
+        await _userService.UpdateAsync(id, request);
+        return Ok(new { message = "User updated successfully" });
+    }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteAsync(int id)
+    {
+        await _userService.DeleteAsync(id);
+        return Ok(new { message = "User deleted successfully" });
     }
 
 }

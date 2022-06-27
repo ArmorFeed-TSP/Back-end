@@ -2,14 +2,14 @@ using ArmorFeedApi.Security.Domain.Models;
 
 namespace ArmorFeedApi.Security.Domain.Respositories;
 
-public interface IUserRepository
+public interface IUserRepository<T>
 {
-    Task<IEnumerable<User>> ListAsync();
-    Task AddAsync(User user);
-    Task<User> FindByIdAsync(int id);
-    Task<User> FindByEmailAsync(string email);
+    Task<IEnumerable<T>> ListAsync();
+    Task AddAsync(T user);
+    Task<T> FindByIdAsync(int id);
+    Task<T> FindByEmailAsync(string email);
     bool ExitsByEmail(string email);
-    User FindById(int id);
-    void Update(User user);
-    void Remove(User user);
+    T FindById(int id);
+    void Update(T user);
+    void Remove(T user);
 }

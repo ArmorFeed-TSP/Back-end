@@ -20,7 +20,6 @@ public class AppDbContext: DbContext
     public DbSet<Payment> Payments { get; set; }
     public DbSet<Enterprise> Enterprises { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
-    public DbSet<User> Users { get; set; }
 
     public DbSet<Customer> Customers{ get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
@@ -37,31 +36,23 @@ public class AppDbContext: DbContext
 
         #endregion
 
-        #region Enterprises
-        
-        //Enterprises
-        builder.Entity<Enterprise>().ToTable("Enterprises");
-        builder.Entity<Enterprise>().HasKey(s => s.Id);
-        builder.Entity<Enterprise>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<Enterprise>().Property(s => s.Name).IsRequired();
-        builder.Entity<Enterprise>().Property(s => s.Ruc).IsRequired();
-        builder.Entity<Enterprise>().Property(s => s.PhoneNumber).IsRequired();
-        builder.Entity<Enterprise>().Property(s => s.Email).IsRequired();
-        builder.Entity<Enterprise>().Property(s => s.PriceBase).IsRequired();
-        builder.Entity<Enterprise>().Property(s => s.FactorWeight).IsRequired();
-        builder.Entity<Enterprise>().Property(s => s.ShippingTime).IsRequired();
-        builder.Entity<Enterprise>().Property(s => s.Score).IsRequired();
-        builder.Entity<Enterprise>().Property(s => s.Photo).IsRequired();
-        //Customers
-        builder.Entity<Customer>().ToTable("Customers");
-        builder.Entity<Customer>().HasKey(s => s.Id);
-        builder.Entity<Customer>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<Customer>().Property(s => s.Email).IsRequired();
-        builder.Entity<Customer>().Property(s => s.Name).IsRequired();
-        builder.Entity<Customer>().Property(s => s.PhoneNumber).IsRequired();
-        builder.Entity<Customer>().Property(s => s.Ruc).IsRequired();
-        builder.Entity<Customer>().Property(s => s.SubscriptionPlan).IsRequired();
+        #region Customers
 
+        builder.Entity<Customer>().ToTable("Customers");
+        builder.Entity<Customer>().HasKey(p => p.Id);
+        builder.Entity<Customer>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Customer>().Property(p => p.Name).IsRequired().HasMaxLength(100);
+        builder.Entity<Customer>().Property(p => p.Photo);
+        builder.Entity<Customer>().Property(p => p.Ruc).IsRequired().HasMaxLength(50);
+        builder.Entity<Customer>().Property(p => p.PhoneNumber).IsRequired().HasMaxLength(9);
+        builder.Entity<Customer>().Property(p => p.Description).IsRequired();
+        builder.Entity<Customer>().Property(p => p.Email).IsRequired().HasMaxLength(100);
+        builder.Entity<Customer>().Property(p => p.LastName).IsRequired().HasMaxLength(100);
+        builder.Entity<Customer>().Property(p => p.SubscriptionPlan).IsRequired();
+        
+        #endregion
+
+        #region Vehicles
         //vehicles
         builder.Entity<Vehicle>().ToTable("Vehicles");
         builder.Entity<Vehicle>().HasKey(p => p.Id);
@@ -71,15 +62,33 @@ public class AppDbContext: DbContext
         builder.Entity<Vehicle>().Property(p => p.Model).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.LicensePlate).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.VehicleType).IsRequired();
-
+        
         //Relationships
         builder.Entity<Enterprise>()
             .HasMany(p => p.Vehicles)
             .WithOne(p => p.Enterprise)
             .HasForeignKey(p => p.EnterpriseId);
+
+        #endregion
+        
+        #region Enterprises
+
+        builder.Entity<Enterprise>().ToTable("Enterprises");
+        builder.Entity<Enterprise>().HasKey(p => p.Id);
+        builder.Entity<Enterprise>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Enterprise>().Property(p => p.Name).IsRequired().HasMaxLength(100);
+        builder.Entity<Enterprise>().Property(p => p.Photo);
+        builder.Entity<Enterprise>().Property(p => p.Ruc).IsRequired().HasMaxLength(50);
+        builder.Entity<Enterprise>().Property(p => p.PhoneNumber).IsRequired().HasMaxLength(9);
+        builder.Entity<Enterprise>().Property(p => p.Description).IsRequired();
+        builder.Entity<Enterprise>().Property(p => p.Email).IsRequired().HasMaxLength(100);
+        builder.Entity<Enterprise>().Property(p => p.PriceBase).IsRequired();
+        builder.Entity<Enterprise>().Property(p => p.FactorWeight).IsRequired();
+        builder.Entity<Enterprise>().Property(p => p.ShippingTime).IsRequired();
+        builder.Entity<Enterprise>().Property(p => p.Score).IsRequired();
         
         #endregion
-
+        
         #region Shipments
 
         //Shipments
@@ -108,21 +117,8 @@ public class AppDbContext: DbContext
 
 
         #endregion
-
-        #region Users
-
-        builder.Entity<User>().ToTable("Users");
-        builder.Entity<User>().HasKey(p => p.Id);
-        builder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<User>().Property(p => p.Name).IsRequired().HasMaxLength(100);
-        builder.Entity<User>().Property(p => p.Photo);
-        builder.Entity<User>().Property(p => p.Ruc).IsRequired().HasMaxLength(50);
-        builder.Entity<User>().Property(p => p.PhoneNumber).IsRequired().HasMaxLength(9);
-        builder.Entity<User>().Property(p => p.Description).IsRequired();
-        builder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(100);
         
-        #endregion
-        //Apply Snake Case Naming Conventios
+        //Apply Snake Case Naming Convention
         builder.UseSnakeCaseNamingConvention();
     }
 }

@@ -1,12 +1,9 @@
 ﻿using ArmorFeedApi.Customers.Domain.Models;
+using ArmorFeedApi.Security.Domain.Respositories;
 
 namespace ArmorFeedApi.Customers.Domain.Repositories;
 
-public interface ICustomerRepository
+public interface ICustomerRepository: IUserRepository<Customer>
 {
-    Task<IEnumerable<Customer>> ListAsync();
-    Task AddAsync(Customer customer);
-    Task<Customer> FindByIdAsync(int id);
-    void Update(Customer customer);
-    void Remove(Customer customer);
+
 }

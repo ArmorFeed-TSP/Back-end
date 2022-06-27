@@ -1,3 +1,9 @@
+using ArmorFeedApi.Customers.Domain.Models;
+using ArmorFeedApi.Customers.Domain.Repositories;
+using ArmorFeedApi.Customers.Domain.Services;
+using ArmorFeedApi.Customers.Persistence.Repositories;
+using ArmorFeedApi.Customers.Services;
+using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Payments.Domain.Repositories;
 using ArmorFeedApi.Payments.Domain.Services;
 using ArmorFeedApi.Payments.Persistence.Repositories;
@@ -13,10 +19,6 @@ using ArmorFeedApi.Security.Authorization.Handlers.Implementations;
 using ArmorFeedApi.Security.Authorization.Handlers.Interfaces;
 using ArmorFeedApi.Security.Authorization.Middleware;
 using ArmorFeedApi.Security.Authorization.Settings;
-using ArmorFeedApi.Security.Domain.Respositories;
-using ArmorFeedApi.Security.Domain.Services;
-using ArmorFeedApi.Security.Persistence.Repositories;
-using ArmorFeedApi.Security.Services;
 using ArmorFeedApi.Shipments.Domain.Repositories;
 using ArmorFeedApi.Shipments.Domain.Services;
 using ArmorFeedApi.Shipments.Persistence.Repositories;
@@ -111,9 +113,8 @@ builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<IShipmentService, ShipmentService>();
 
 // Security Injection Configuration
-builder.Services.AddScoped<IJwtHandler, JwtHandler>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IJwtHandler<Customer>, JwtHandlerCustomer>();
+builder.Services.AddScoped<IJwtHandler<Enterprise>, JwtHandlerEnterprise>();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
@@ -124,8 +125,10 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddAutoMapper(
     typeof(ArmorFeedApi.Shared.Mapping.ModelToResourceProfile),
     typeof(ArmorFeedApi.Shared.Mapping.ResourceToModelProfile),
-    typeof(ArmorFeedApi.Security.Mapping.ModelToResourceProfile),
-    typeof(ArmorFeedApi.Security.Mapping.ResourceToModelProfile));
+    typeof(ArmorFeedApi.Customers.Mapping.ModelToResourceProfile),
+    typeof(ArmorFeedApi.Customers.Mapping.ResourceToModelProfile),
+    typeof(ArmorFeedApi.Enterprises.Mapping.ModelToResourceProfile),
+    typeof(ArmorFeedApi.Enterprises.Mapping.ResourceToModelProfile));
 
 
 var app = builder.Build();
@@ -161,8 +164,8 @@ app.UseCors(x => x
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
 //Configure JWT Handling Middleware
-app.UseMiddleware<JwtMiddleware>();
-
+app.UseMiddleware<JwtMiddlewareCustomer>();
+app.UseMiddleware<JwtMiddlewareEnterprise>();
 
 app.UseHttpsRedirection();
 

@@ -1,6 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Security.Authorization.Handlers.Interfaces;
 using ArmorFeedApi.Security.Authorization.Settings;
 using ArmorFeedApi.Security.Domain.Models;
@@ -9,16 +10,16 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ArmorFeedApi.Security.Authorization.Handlers.Implementations;
 
-public class JwtHandler : IJwtHandler
+public class JwtHandlerCustomer : IJwtHandler<Customer>
 {
     private readonly AppSettings _appSettings;
 
-    public JwtHandler(IOptions<AppSettings> appSettings)
+    public JwtHandlerCustomer(IOptions<AppSettings> appSettings)
     {
         _appSettings = appSettings.Value;
     }
 
-    public string GenerateToken(User user)
+    public string GenerateToken(Customer user)
     {
         // Generate Token for a valid period of 7 days
 

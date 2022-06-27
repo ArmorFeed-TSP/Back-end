@@ -6,7 +6,7 @@ public class User
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public byte[] Photo { get; set; }
+    public string Photo { get; set; }
     public string Ruc { get; set; }
     public string PhoneNumber { get; set; }
     public string Description { get; set; }

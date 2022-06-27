@@ -1,8 +1,9 @@
-using ArmorFeedApi.Security.Domain.Models;
+using ArmorFeedApi.Enterprises.Domain.Models;
+using ArmorFeedApi.Security.Authorization.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace ArmorFeedApi.Security.Authorization.Attributes;
+namespace ArmorFeedApi.Enterprises.Authorization.Attributes;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
 public class AuthorizeAttribute : Attribute, IAuthorizationFilter
@@ -21,7 +22,7 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
 
         // Otherwise, perform Authorization process
 
-        var user = (User)context.HttpContext.Items["User"];
+        var user = (Enterprise)context.HttpContext.Items["Enterprise"];
 
         if (user == null)
 

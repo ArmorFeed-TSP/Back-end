@@ -1,13 +1,14 @@
 ﻿
 using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Customers.Domain.Services.Communication;
+using ArmorFeedApi.Security.Domain.Services;
+using ArmorFeedApi.Security.Domain.Services.Communication;
 
 namespace ArmorFeedApi.Customers.Domain.Services;
 
-public interface ICustomerService
+public interface ICustomerService: IUserService<Customer>
 {
-    Task<IEnumerable<Customer>> ListAsync();
-    Task<CustomerResponse> SaveAsync(Customer customer);
-    Task<CustomerResponse> UpdateAsync(int id, Customer customer);
-    Task<CustomerResponse> DeleteAsync(int id);
+    Task<AuthenticateCustomerResponse> Authenticate(AuthenticateRequest request);
+    Task RegisterAsync(RegisterCustomerRequest request);
+    Task UpdateAsync(int id, UpdateCustomerRequest request);
 }
