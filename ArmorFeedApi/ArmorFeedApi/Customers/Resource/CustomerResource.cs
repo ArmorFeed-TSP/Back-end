@@ -1,6 +1,6 @@
-﻿namespace ArmorFeedApi.Customers.Domain.Models;
+﻿namespace ArmorFeedApi.Customers.Resource;
 
-public class Customer
+public class CustomerResource
 {
     public int Id { get; set; }
     public string Email { get; set; }
@@ -8,4 +8,5 @@ public class Customer
     public string PhoneNumber { get; set; }
     public string Ruc { get; set; }
     public int SubscriptionPlan { get; set; }
+
 }

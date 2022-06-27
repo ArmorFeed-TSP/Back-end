@@ -1,3 +1,5 @@
+using ArmorFeedApi.Customers.Domain.Models;
+using ArmorFeedApi.Customers.Resource;
 using ArmorFeedApi.Payments.Domain.Model;
 using ArmorFeedApi.Payments.Resources;
 using ArmorFeedApi.Enterprises.Domain.Models;
@@ -16,5 +18,6 @@ public class ResourceToModelProfile: Profile
         CreateMap<SavePaymentResource, Payment>();
         CreateMap<SaveEnterpriseResource, Enterprise>();
         CreateMap<SaveVehicleResource, Vehicle>();
+        CreateMap<SaveCustomerResource,Customer>();
     }
 }

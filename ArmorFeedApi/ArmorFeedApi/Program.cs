@@ -17,7 +17,6 @@ using ArmorFeedApi.Security.Domain.Respositories;
 using ArmorFeedApi.Security.Domain.Services;
 using ArmorFeedApi.Security.Persistence.Repositories;
 using ArmorFeedApi.Security.Services;
-using ArmorFeedApi.Shared.Domain.Repositories;
 using ArmorFeedApi.Shipments.Domain.Repositories;
 using ArmorFeedApi.Shipments.Domain.Services;
 using ArmorFeedApi.Shipments.Persistence.Repositories;
@@ -26,7 +25,10 @@ using ArmorFeedApi.Vehicles.Domain.Repositories;
 using ArmorFeedApi.Vehicles.Domain.Services;
 using ArmorFeedApi.Vehicles.Persistence.Repositories;
 using ArmorFeedApi.Vehicles.Services;
+
+
 using Microsoft.OpenApi.Models;
+using IUnitOfWork = ArmorFeedApi.Shared.Domain.Repositories.IUnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,6 +114,11 @@ builder.Services.AddScoped<IShipmentService, ShipmentService>();
 builder.Services.AddScoped<IJwtHandler, JwtHandler>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(
