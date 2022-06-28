@@ -1,3 +1,7 @@
+using ArmorFeedApi.Comments.Domain.Repositories;
+using ArmorFeedApi.Comments.Domain.Services;
+using ArmorFeedApi.Comments.Persistence.Repositories;
+using ArmorFeedApi.Comments.Services;
 using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Customers.Domain.Repositories;
 using ArmorFeedApi.Customers.Domain.Services;
@@ -117,6 +121,9 @@ builder.Services.AddScoped<IJwtHandler<Enterprise>, JwtHandlerEnterprise>();
 
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

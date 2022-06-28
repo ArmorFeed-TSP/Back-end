@@ -1,4 +1,5 @@
-﻿using ArmorFeedApi.Customers.Domain.Models;
+﻿using ArmorFeedApi.Comments.Domain.Models;
+using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Payments.Domain.Model;
 using ArmorFeedApi.Security.Domain.Models;
@@ -22,6 +23,8 @@ public class AppDbContext: DbContext
     public DbSet<Vehicle> Vehicles { get; set; }
 
     public DbSet<Customer> Customers{ get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -91,7 +94,18 @@ public class AppDbContext: DbContext
         #endregion
         
         #region Shipments
-
+        //Comments
+        builder.Entity<Comment>().ToTable("Comments");
+        builder.Entity<Comment>().HasKey(p => p.Id);
+        builder.Entity<Comment>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Comment>().Property(p => p.Title).IsRequired();
+        builder.Entity<Comment>().Property(p => p.Content).IsRequired();
+        
+        builder.Entity<Shipment>()
+            .HasMany(p => p.Comments)
+            .WithOne(p => p.Shipment)
+            .HasForeignKey(p => p.ShipmentId);
+        
         //Shipments
         builder.Entity<Shipment>().ToTable("Shipments");
         builder.Entity<Shipment>().HasKey(s => s.Id); 
@@ -115,6 +129,7 @@ public class AppDbContext: DbContext
         builder.Entity<Shipment>().HasOne(s => s.Customer);
 
 
+    //RelationShips
 
 
         #endregion
