@@ -30,6 +30,7 @@ public class EnterprisesController: ControllerBase
         var response = await _userService.Authenticate(request);
         return Ok(response);
     }
+    
     [AllowAnonymous]
     [HttpPost("sign-up")]
     public async Task<IActionResult> RegisterAsync(RegisterEnterpriseRequest request)
