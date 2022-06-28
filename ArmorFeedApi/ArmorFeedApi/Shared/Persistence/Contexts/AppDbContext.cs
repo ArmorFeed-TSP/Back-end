@@ -34,6 +34,7 @@ public class AppDbContext: DbContext
         builder.Entity<Payment>().Property(p => p.Amount).IsRequired();
         builder.Entity<Payment>().Property(p => p.Currency).IsRequired().HasMaxLength(20);
 
+        builder.Entity<Payment>().HasOne(s => s.Shipment);
         #endregion
 
         #region Customers
