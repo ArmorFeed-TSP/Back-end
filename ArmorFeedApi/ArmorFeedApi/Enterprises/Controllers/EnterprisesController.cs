@@ -46,6 +46,8 @@ public class EnterprisesController: ControllerBase
         var resources = _mapper.Map<IEnumerable<Enterprise>, IEnumerable<EnterpriseResource>>(users);
         return Ok(resources);
     }
+
+    [AllowAnonymous]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetByIdAsync(int id)
     {

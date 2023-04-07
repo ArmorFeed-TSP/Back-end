@@ -42,6 +42,7 @@ public class CommentsController:ControllerBase
         OperationId = "PostComment",
         Tags = new []{"Comments"}
     )]
+    
     public async Task<IActionResult> PostAsync([FromBody] SaveCommentResource resource)
     {
         if (!ModelState.IsValid)

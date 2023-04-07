@@ -29,8 +29,8 @@ public class CustomerService:  ICustomerService
     public async Task<AuthenticateCustomerResponse> Authenticate(AuthenticateRequest request)
     {
         var user = await _customerRepository.FindByEmailAsync(request.Email);
-        Console.WriteLine($"Request: {request.Email}, {request.Password}");
-        Console.WriteLine($"User: {user.Id}, {user.Name}, {user.PhoneNumber}, {user.Description}, {user.Ruc}, {user.Email}, {user.PasswordHash}");
+        //Console.WriteLine($"Request: {request.Email}, {request.Password}");
+        //Console.WriteLine($"User: {user.Id}, {user.Name}, {user.PhoneNumber}, {user.Description}, {user.Ruc}, {user.Email}, {user.PasswordHash}");
         
         //Perform validation
         if (user==null || !BCryptNet.Verify(request.Password,user.PasswordHash))
