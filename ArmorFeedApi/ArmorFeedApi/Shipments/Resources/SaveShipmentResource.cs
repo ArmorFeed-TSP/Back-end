@@ -58,4 +58,7 @@ public class SaveShipmentResource
     
     [Required]
     public int CustomerId { get; set; }
+
+    [Required]
+    public string PackageType { get; set; }
 }

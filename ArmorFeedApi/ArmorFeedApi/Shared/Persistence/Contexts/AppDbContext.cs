@@ -123,6 +123,7 @@ public class AppDbContext: DbContext
         builder.Entity<Shipment>().Property(s => s.PickUpDate).IsRequired();
         builder.Entity<Shipment>().Property(s => s.DeliveryDate).IsRequired();
         builder.Entity<Shipment>().Property(s => s.Status).IsRequired();
+        builder.Entity<Shipment>().Property(s => s.PackageType).IsRequired();
         
         // Shipments Relationships
         builder.Entity<Shipment>().HasOne(s => s.Enterprise);

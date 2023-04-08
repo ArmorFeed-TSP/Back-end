@@ -21,6 +21,7 @@ public class Shipment
     public string DestinyAddress { get; set; }
     public string DestinyUrbanization { get; set; }
     public string DestinyReference { get; set; }
+    public string PackageType { get; set; }
     
     public int EnterpriseId { get; set; }
     public Enterprise Enterprise { get; set; }
