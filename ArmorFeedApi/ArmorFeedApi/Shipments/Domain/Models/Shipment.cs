@@ -2,6 +2,7 @@
 using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Payments.Domain.Model;
+using ArmorFeedApi.Vehicles.Domain.Models;
 
 namespace ArmorFeedApi.Shipments.Domain.Models;
 
@@ -28,5 +29,8 @@ public class Shipment
     
     public int CustomerId { get; set; }
     public Customer Customer { get; set; }
+
+    public int? VehicleId { get; set; }
+    public Vehicle Vehicle { get; set; }
     public IList<Comment> Comments { get; set; } = new List<Comment>();
 }

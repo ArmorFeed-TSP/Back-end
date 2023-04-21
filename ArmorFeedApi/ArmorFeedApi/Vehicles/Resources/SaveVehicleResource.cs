@@ -1,4 +1,5 @@
 ﻿
+using ArmorFeedApi.Vehicles.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace ArmorFeedApi.Vehicles.Resources;
@@ -19,5 +20,9 @@ public class SaveVehicleResource
     public string VehicleType { get; set; }
     [Required]
     public int EnterpriseId { get; set; }
+
+    [Required]
+    [EnumDataType(typeof(VehicleState))]
+    public VehicleState CurrentState { get; set; }
     
 }

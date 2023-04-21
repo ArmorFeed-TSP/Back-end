@@ -21,4 +21,5 @@ public class ShipmentResource
     public int EnterpriseId { get; set; }
     public int CustomerId { get; set; }
     public string PackageDate { get; set; }
+    public int VehicleId { get; set; }
 }

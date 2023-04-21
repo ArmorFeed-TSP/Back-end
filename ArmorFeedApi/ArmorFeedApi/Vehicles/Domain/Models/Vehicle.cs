@@ -1,8 +1,17 @@
 ﻿
 
 using ArmorFeedApi.Enterprises.Domain.Models;
+using ArmorFeedApi.Shipments.Domain.Models;
+using System.Runtime.Versioning;
 
 namespace ArmorFeedApi.Vehicles.Domain.Models;
+
+public enum VehicleState
+{
+    AVAILABLE,
+    OCCUPIED,
+    IN_MAINTENANCE
+}
 
 public class Vehicle
 {
@@ -13,9 +22,11 @@ public class Vehicle
     public string Model { get; set; }
     public string MaintenanceDate { get; set; }
     public string VehicleType { get; set; }
+    public VehicleState CurrentState { get; set; }
     
     //Relationships
     public int EnterpriseId { get; set; }
     public Enterprise Enterprise { get; set; }
+    public Shipment Shipment { get; set; }
 
 }
