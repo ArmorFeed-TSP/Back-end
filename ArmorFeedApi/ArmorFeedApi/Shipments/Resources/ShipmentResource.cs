@@ -20,5 +20,6 @@ public class ShipmentResource
     public string DestinyReference { get; set; }
     public int EnterpriseId { get; set; }
     public int CustomerId { get; set; }
-    public string PackageDate { get; set; }
+    public string PackageType { get; set; }
+    public int VehicleId { get; set; }
 }

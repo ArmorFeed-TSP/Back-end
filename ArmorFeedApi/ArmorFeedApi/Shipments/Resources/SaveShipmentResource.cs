@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AutoMapper.Configuration.Annotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace ArmorFeedApi.Shipments.Resources;
 
@@ -61,4 +62,5 @@ public class SaveShipmentResource
 
     [Required]
     public string PackageType { get; set; }
+    public int? VehicleId { get; set; }
 }

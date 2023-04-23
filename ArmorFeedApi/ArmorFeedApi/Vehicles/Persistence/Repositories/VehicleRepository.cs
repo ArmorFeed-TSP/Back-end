@@ -46,5 +46,12 @@ public class VehicleRepository: BaseRepository, IVehicleRepository
     {
         _context.Vehicles.Remove(vehicle);
     }
-   
+
+    public async Task<IEnumerable<Vehicle>> FindAllAvailablesByEnterpriseId(int id)
+    {
+        return await _context.Vehicles
+            .Where(p => p.EnterpriseId == id && p.CurrentState == VehicleState.AVAILABLE)
+            .Include(p => p.Enterprise)
+            .ToListAsync();
+    }
 }

@@ -9,6 +9,7 @@ public interface IVehicleService
     Task<IEnumerable<Vehicle>> ListAsync();
 
     Task<IEnumerable<Vehicle>> ListByEnterpriseAsync(int enterpriseId);
+    Task<IEnumerable<Vehicle>> ListAllAvailablesByEnterpriseAsync(int enterpriseId);
 
     Task<Vehicle> FindByIdAsync(int id);
     Task<VehicleResponse> SaveAsync(Vehicle vehicle);

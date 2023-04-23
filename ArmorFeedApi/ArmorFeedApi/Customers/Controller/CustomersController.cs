@@ -38,6 +38,7 @@ public class CustomersController: ControllerBase
         await _userService.RegisterAsync(request);
         return Ok(new { message ="Registration successful"});
     }
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()
     {
