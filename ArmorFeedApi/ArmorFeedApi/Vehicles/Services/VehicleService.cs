@@ -77,6 +77,7 @@ namespace ArmorFeedApi.Vehicles.Services;
             existingVehicle.Model = vehicle.Model;
             existingVehicle.MaintenanceDate= vehicle.MaintenanceDate;
             existingVehicle.VehicleType = vehicle.VehicleType;
+            existingVehicle.CurrentState = vehicle.CurrentState;
 
             try
             {
@@ -109,4 +110,8 @@ namespace ArmorFeedApi.Vehicles.Services;
                 return new VehicleResponse($"An error occurred while deleting the vehicle: {e.Message}");
             }
         }
-    }
+        public async Task<IEnumerable<Vehicle>> ListAllAvailablesByEnterpriseAsync(int enterpriseId)
+        {
+            return await _vehicleRepository.FindAllAvailablesByEnterpriseId(enterpriseId);
+        }
+}

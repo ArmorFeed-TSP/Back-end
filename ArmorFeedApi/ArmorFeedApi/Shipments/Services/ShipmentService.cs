@@ -3,18 +3,21 @@ using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Shipments.Domain.Repositories;
 using ArmorFeedApi.Shipments.Domain.Services;
 using ArmorFeedApi.Shipments.Domain.Services.Communications;
+using ArmorFeedApi.Vehicles.Domain.Repositories;
 
 namespace ArmorFeedApi.Shipments.Services;
 
 public class ShipmentService: IShipmentService
 {
     private readonly IShipmentRepository _shipmentRepository;
+    private readonly IVehicleRepository _vehicleRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public ShipmentService(IShipmentRepository shipmentRepository, IUnitOfWork unitOfWork)
+    public ShipmentService(IShipmentRepository shipmentRepository, IUnitOfWork unitOfWork, IVehicleRepository vehicleRepository)
     {
         _shipmentRepository = shipmentRepository;
         _unitOfWork = unitOfWork;
+        _vehicleRepository = vehicleRepository;
     }
 
     public async Task<IEnumerable<Shipment>> ListAsync()
@@ -61,6 +64,16 @@ public class ShipmentService: IShipmentService
 
         existingShipment.DeliveryDate = shipment.DeliveryDate;
         existingShipment.Status = shipment.Status;
+        existingShipment.PackageType = shipment.PackageType;
+
+        if(shipment.VehicleId.HasValue)
+        {
+            var existingVehicle = await _vehicleRepository.FindByIdAsync(shipment.VehicleId.Value);
+            if (existingVehicle == null)
+                return new ShipmentResponse("Vehicle with given id was not found");
+            existingShipment.VehicleId = shipment.VehicleId;
+            existingShipment.Vehicle = existingVehicle;
+        }
 
         try
         {

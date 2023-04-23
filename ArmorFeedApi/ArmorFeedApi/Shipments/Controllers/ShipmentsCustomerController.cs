@@ -19,7 +19,8 @@ public class ShipmentsCustomerController
     }
     
     [HttpGet]
-    public async Task<IEnumerable<ShipmentResource>> GetAllByEnterpriseId(int customerId)
+    [Route("api/v1/customers/{customerId}/shipments")]
+    public async Task<IEnumerable<ShipmentResource>> GetAllByCustomerId(int customerId)
     {
         var shipments = await _shipmentService.ListByCustomerId(customerId);
         var resources = _mapper.Map<IEnumerable<Shipment>, IEnumerable<ShipmentResource>>(shipments);
