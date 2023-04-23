@@ -20,6 +20,7 @@ public class ShipmentsEnterpriseController
     }
 
     [HttpGet]
+    [Route("api/v1/enterprises/{enterpriseId}/shipments")]
     public async Task<IEnumerable<ShipmentResource>> GetAllByEnterpriseId(int enterpriseId)
     {
         var shipments = await _shipmentService.ListByEnterpriseId(enterpriseId);

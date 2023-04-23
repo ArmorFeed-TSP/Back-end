@@ -24,13 +24,27 @@ public class EnterpriseVehiclesController: ControllerBase
     [HttpGet]
     [SwaggerOperation(
         Summary = "Get Vehicles",
-        Description = "Get All Vehicle by Enterprise Id",
+        Description = "Get All Vehicles by Enterprise Id",
         OperationId = "GetVechicles",
         Tags = new []{"Enterprises"}
     )]
     public async Task<IEnumerable<VehicleResource>> GetAllByEnterpriseId(int enterpriseId)
     {
         var vehicles = await _vehicleService.ListByEnterpriseAsync(enterpriseId);
+        var resources = _mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
+        return resources;
+    }
+
+    [HttpGet("availables")]
+    [SwaggerOperation(
+        Summary = "GetVehicles",
+        Description = "Get All Available Vehicles by Enterprise Id",
+        OperationId = "GetAvailableVechicles",
+        Tags = new[] { "Enterprises" }
+    )]
+    public async Task<IEnumerable<VehicleResource>> GetAllAvailablesByEnterpriseId(int enterpriseId)
+    {
+        var vehicles = await _vehicleService.ListAllAvailablesByEnterpriseAsync(enterpriseId);
         var resources = _mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
         return resources;
     }

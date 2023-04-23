@@ -1,5 +1,6 @@
 ﻿
 using ArmorFeedApi.Enterprises.Resources;
+using ArmorFeedApi.Vehicles.Domain.Models;
 
 namespace ArmorFeedApi.Vehicles.Resources;
 
@@ -12,6 +13,6 @@ public class VehicleResource
     public string Model { get; set; }
     public string MaintenanceDate { get; set; }
     public string VehicleType { get; set; }
+    public VehicleState CurrentState { get; set; }
     public EnterpriseResource Enterprise;
-
 }

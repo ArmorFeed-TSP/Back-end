@@ -66,6 +66,11 @@ public class AppDbContext: DbContext
         builder.Entity<Vehicle>().Property(p => p.Model).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.LicensePlate).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.VehicleType).IsRequired();
+        builder.Entity<Vehicle>().Property(p => p.CurrentState).IsRequired()
+            .HasConversion(
+                currentState => currentState.ToString(), 
+                currentState => (VehicleState)Enum.Parse(typeof(VehicleState), currentState)
+            );
         
         //Relationships
         builder.Entity<Enterprise>()
@@ -128,6 +133,11 @@ public class AppDbContext: DbContext
         // Shipments Relationships
         builder.Entity<Shipment>().HasOne(s => s.Enterprise);
         builder.Entity<Shipment>().HasOne(s => s.Customer);
+        builder.Entity<Vehicle>()
+            .HasOne(v => v.Shipment)
+            .WithOne(s => s.Vehicle)
+            .HasForeignKey<Shipment>(s => s.VehicleId)
+            .IsRequired(false);
 
 
     //RelationShips
