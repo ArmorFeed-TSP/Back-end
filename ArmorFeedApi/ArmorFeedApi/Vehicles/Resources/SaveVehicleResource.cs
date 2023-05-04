@@ -17,8 +17,6 @@ public class SaveVehicleResource
     [Required]
     public string MaintenanceDate { get; set; }
     [Required]
-    public string VehicleType { get; set; }
-    [Required]
     public int EnterpriseId { get; set; }
 
     [Required]
