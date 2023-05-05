@@ -31,7 +31,8 @@ using ArmorFeedApi.Vehicles.Domain.Repositories;
 using ArmorFeedApi.Vehicles.Domain.Services;
 using ArmorFeedApi.Vehicles.Persistence.Repositories;
 using ArmorFeedApi.Vehicles.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
+
+
 using Microsoft.OpenApi.Models;
 using IUnitOfWork = ArmorFeedApi.Shared.Domain.Repositories.IUnitOfWork;
 using System.Text.Json.Serialization;
@@ -130,18 +131,6 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-builder.Services
-    .AddAuthentication(o =>
-    {
-        o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    })
-    .AddCookie()
-    .AddGoogleOpenIdConnect(options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    });
-
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(
     typeof(ArmorFeedApi.Shared.Mapping.ModelToResourceProfile),
@@ -161,8 +150,6 @@ using (var context = scope.ServiceProvider.GetRequiredService<AppDbContext>())
 {
     context.Database.EnsureCreated();
 }
-app.UseAuthentication();
-app.UseAuthorization();
 
 
 // Configure the HTTP request pipeline.
