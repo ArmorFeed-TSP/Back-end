@@ -65,7 +65,7 @@ public class AppDbContext: DbContext
         builder.Entity<Vehicle>().Property(p => p.Year).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.Model).IsRequired();
         builder.Entity<Vehicle>().Property(p => p.LicensePlate).IsRequired();
-        builder.Entity<Vehicle>().Property(p => p.VehicleType).IsRequired();
+        builder.Entity<Vehicle>().Property(p => p.Image).HasColumnType("longtext").IsRequired();
         builder.Entity<Vehicle>().Property(p => p.CurrentState).IsRequired()
             .HasConversion(
                 currentState => currentState.ToString(), 

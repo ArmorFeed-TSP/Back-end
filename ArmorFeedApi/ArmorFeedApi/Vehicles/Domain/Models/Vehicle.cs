@@ -2,6 +2,7 @@
 
 using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Shipments.Domain.Models;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Runtime.Versioning;
 
 namespace ArmorFeedApi.Vehicles.Domain.Models;
@@ -21,6 +22,8 @@ public class Vehicle
     public int Year { get; set; }
     public string Model { get; set; }
     public string MaintenanceDate { get; set; }
+
+    public string Image { get; set; }
     public VehicleState CurrentState { get; set; }
     
     //Relationships
