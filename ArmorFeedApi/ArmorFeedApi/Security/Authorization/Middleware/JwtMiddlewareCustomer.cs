@@ -4,7 +4,7 @@ using ArmorFeedApi.Customers.Domain.Services;
 using ArmorFeedApi.Security.Authorization.Handlers.Interfaces;
 using ArmorFeedApi.Security.Authorization.Settings;
 using ArmorFeedApi.Security.Domain.Services;
-using Google.Apis.Auth.AspNetCore;
+using Google.Apis.Auth.AspNetCore3;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 
