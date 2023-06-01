@@ -4,7 +4,6 @@ using ArmorFeedApi.Customers.Domain.Services;
 using ArmorFeedApi.Security.Authorization.Handlers.Interfaces;
 using ArmorFeedApi.Security.Authorization.Settings;
 using ArmorFeedApi.Security.Domain.Services;
-using Google.Apis.Auth.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 
@@ -32,7 +31,7 @@ public class JwtMiddlewareCustomer
         }
         await _next(context);
     }
-    private async Task<bool> IsGoogleUserAsync(HttpContext context)
+    /*private async Task<bool> IsGoogleUserAsync(HttpContext context)
     {
         var authenticateResult = await context.AuthenticateAsync(GoogleOpenIdConnectDefaults.AuthenticationScheme);
         return authenticateResult.Succeeded;
@@ -56,6 +55,6 @@ public class JwtMiddlewareCustomer
             return authenticateResult.Principal.FindFirst(ClaimTypes.Name)?.Value;
         }
         return null;
-    }
+    }*/
 
 }

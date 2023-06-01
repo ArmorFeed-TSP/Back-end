@@ -31,7 +31,6 @@ using ArmorFeedApi.Vehicles.Domain.Repositories;
 using ArmorFeedApi.Vehicles.Domain.Services;
 using ArmorFeedApi.Vehicles.Persistence.Repositories;
 using ArmorFeedApi.Vehicles.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.OpenApi.Models;
 using IUnitOfWork = ArmorFeedApi.Shared.Domain.Repositories.IUnitOfWork;
 using System.Text.Json.Serialization;
@@ -109,9 +108,6 @@ builder.Services.AddRouting(options =>
 
 // Dependency Injection Configuration ArmorFeed
 
-//Shared Injection Configuration
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 //ArmorFeed Injection Configuration
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
@@ -121,22 +117,9 @@ builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<IShipmentService, ShipmentService>();
-<<<<<<< Updated upstream
-builder.Services
-    .AddAuthentication(o =>
-    {
-        o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    })
-    .AddCookie()
-    .AddGoogleOpenIdConnect(options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    });
-=======
+
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
->>>>>>> Stashed changes
 
 // Security Injection Configuration
 builder.Services.AddScoped<IJwtHandler<Customer>, JwtHandlerCustomer>();
@@ -149,18 +132,6 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-builder.Services
-    .AddAuthentication(o =>
-    {
-        o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    })
-    .AddCookie()
-    .AddGoogleOpenIdConnect(options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    });
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(

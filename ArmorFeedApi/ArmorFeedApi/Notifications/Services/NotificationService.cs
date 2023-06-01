@@ -38,11 +38,11 @@ namespace ArmorFeedApi.Notifications.Services
             var existingEnterprise = await _enterpriseRepository.FindByIdAsync(notification.EnterpriseId);
             var existingCustomer = await _customerRepository.FindByIdAsync(notification.CustomerId);
             string errorResponse = string.Empty;
-            if (existingEnterprise != null) {
+            if (existingEnterprise == null) {
                 errorResponse += $"Enterprise with {notification.EnterpriseId} Id does not exist";
             }
-            if (existingCustomer != null) {
-                errorResponse += $"Enterprise with {notification.CustomerId} Id does not Exist";
+            if (existingCustomer == null) {
+                errorResponse += $"\nCustomer with {notification.CustomerId} Id does not Exist";
             }
             if(errorResponse.Equals(String.Empty) == false ) {
                 return new NotificationResponse(errorResponse);
