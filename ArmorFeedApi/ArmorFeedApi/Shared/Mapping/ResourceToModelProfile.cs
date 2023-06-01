@@ -4,18 +4,17 @@ using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Customers.Resource;
 using ArmorFeedApi.Payments.Domain.Model;
 using ArmorFeedApi.Payments.Resources;
-using ArmorFeedApi.Enterprises.Domain.Models;
-using ArmorFeedApi.Enterprises.Resources;
 using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Shipments.Resources;
 using ArmorFeedApi.Vehicles.Domain.Models;
 using ArmorFeedApi.Vehicles.Resources;
 using AutoMapper;
-using Enterprise = ArmorFeedApi.Enterprises.Domain.Models.Enterprise;
+using ArmorFeedApi.Notifications.Resources;
+using ArmorFeedApi.Notifications.Domain.Models;
 
 namespace ArmorFeedApi.Shared.Mapping;
 
-public class ResourceToModelProfile: AutoMapper.Profile
+public class ResourceToModelProfile: Profile
 {
     public ResourceToModelProfile()
     {
@@ -24,5 +23,6 @@ public class ResourceToModelProfile: AutoMapper.Profile
         CreateMap<SaveCustomerResource,Customer>();
         CreateMap<SaveShipmentResource, Shipment>();
         CreateMap<SaveCommentResource, Comment>();
+        CreateMap<SaveNotificationResource, Notification>();
     }
 }
