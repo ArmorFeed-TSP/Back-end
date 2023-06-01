@@ -35,6 +35,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.OpenApi.Models;
 using IUnitOfWork = ArmorFeedApi.Shared.Domain.Repositories.IUnitOfWork;
 using System.Text.Json.Serialization;
+using ArmorFeedApi.Notifications.Domain.Repositories;
+using ArmorFeedApi.Notifications.Persistence.Repositories;
+using ArmorFeedApi.Notifications.Domain.Services;
+using ArmorFeedApi.Notifications.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -117,6 +121,7 @@ builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<IShipmentService, ShipmentService>();
+<<<<<<< Updated upstream
 builder.Services
     .AddAuthentication(o =>
     {
@@ -128,6 +133,10 @@ builder.Services
         options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
     });
+=======
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+>>>>>>> Stashed changes
 
 // Security Injection Configuration
 builder.Services.AddScoped<IJwtHandler<Customer>, JwtHandlerCustomer>();
