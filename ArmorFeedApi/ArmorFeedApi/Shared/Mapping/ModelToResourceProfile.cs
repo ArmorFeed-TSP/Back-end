@@ -13,10 +13,12 @@ using ArmorFeedApi.Vehicles.Domain.Models;
 using ArmorFeedApi.Vehicles.Resources;
 using AutoMapper;
 using Enterprise = ArmorFeedApi.Enterprises.Domain.Models.Enterprise;
+using ArmorFeedApi.Notifications.Domain.Models;
+using ArmorFeedApi.Notifications.Resources;
 
 namespace ArmorFeedApi.Shared.Mapping;
 
-public class ModelToResourceProfile: AutoMapper.Profile
+public class ModelToResourceProfile: Profile
 {
     public ModelToResourceProfile()
     {
@@ -26,5 +28,6 @@ public class ModelToResourceProfile: AutoMapper.Profile
         CreateMap<Customer,CustomerResource>();
         CreateMap<Shipment, ShipmentResource>();
         CreateMap<Comment, CommentResource>();
+        CreateMap<Notification, NotificationResource>();
     }
 }

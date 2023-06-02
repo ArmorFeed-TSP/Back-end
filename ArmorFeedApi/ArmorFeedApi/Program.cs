@@ -31,11 +31,13 @@ using ArmorFeedApi.Vehicles.Domain.Repositories;
 using ArmorFeedApi.Vehicles.Domain.Services;
 using ArmorFeedApi.Vehicles.Persistence.Repositories;
 using ArmorFeedApi.Vehicles.Services;
-
-
 using Microsoft.OpenApi.Models;
 using IUnitOfWork = ArmorFeedApi.Shared.Domain.Repositories.IUnitOfWork;
 using System.Text.Json.Serialization;
+using ArmorFeedApi.Notifications.Domain.Repositories;
+using ArmorFeedApi.Notifications.Persistence.Repositories;
+using ArmorFeedApi.Notifications.Domain.Services;
+using ArmorFeedApi.Notifications.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -106,9 +108,6 @@ builder.Services.AddRouting(options =>
 
 // Dependency Injection Configuration ArmorFeed
 
-//Shared Injection Configuration
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
 //ArmorFeed Injection Configuration
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
@@ -118,6 +117,9 @@ builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IShipmentRepository, ShipmentRepository>();
 builder.Services.AddScoped<IShipmentService, ShipmentService>();
+
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 // Security Injection Configuration
 builder.Services.AddScoped<IJwtHandler<Customer>, JwtHandlerCustomer>();
@@ -150,6 +152,8 @@ using (var context = scope.ServiceProvider.GetRequiredService<AppDbContext>())
 {
     context.Database.EnsureCreated();
 }
+app.UseAuthentication();
+app.UseAuthorization();
 
 
 // Configure the HTTP request pipeline.

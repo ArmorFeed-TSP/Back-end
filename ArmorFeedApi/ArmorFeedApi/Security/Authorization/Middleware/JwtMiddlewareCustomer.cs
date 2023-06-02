@@ -1,8 +1,10 @@
+using System.Security.Claims;
 using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Customers.Domain.Services;
 using ArmorFeedApi.Security.Authorization.Handlers.Interfaces;
 using ArmorFeedApi.Security.Authorization.Settings;
 using ArmorFeedApi.Security.Domain.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 
 namespace ArmorFeedApi.Security.Authorization.Middleware;
@@ -29,5 +31,30 @@ public class JwtMiddlewareCustomer
         }
         await _next(context);
     }
+    /*private async Task<bool> IsGoogleUserAsync(HttpContext context)
+    {
+        var authenticateResult = await context.AuthenticateAsync(GoogleOpenIdConnectDefaults.AuthenticationScheme);
+        return authenticateResult.Succeeded;
+    }
+
+    private async Task<string> GetGoogleEmailAsync(HttpContext context)
+    {
+        var authenticateResult = await context.AuthenticateAsync(GoogleOpenIdConnectDefaults.AuthenticationScheme);
+        if (authenticateResult.Succeeded)
+        {
+            return authenticateResult.Principal.FindFirst(ClaimTypes.Email)?.Value;
+        }
+        return null;
+    }
+
+    private async Task<string> GetGoogleNameAsync(HttpContext context)
+    {
+        var authenticateResult = await context.AuthenticateAsync(GoogleOpenIdConnectDefaults.AuthenticationScheme);
+        if (authenticateResult.Succeeded)
+        {
+            return authenticateResult.Principal.FindFirst(ClaimTypes.Name)?.Value;
+        }
+        return null;
+    }*/
 
 }
