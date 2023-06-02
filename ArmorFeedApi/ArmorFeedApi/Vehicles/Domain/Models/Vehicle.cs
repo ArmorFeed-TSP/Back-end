@@ -22,7 +22,6 @@ public class Vehicle
     public int Year { get; set; }
     public string Model { get; set; }
     public string MaintenanceDate { get; set; }
-
     public string Image { get; set; }
     public VehicleState CurrentState { get; set; }
     

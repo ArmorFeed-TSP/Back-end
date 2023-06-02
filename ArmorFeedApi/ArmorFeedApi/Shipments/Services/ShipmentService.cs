@@ -66,7 +66,7 @@ public class ShipmentService: IShipmentService
         existingShipment.Status = shipment.Status;
         existingShipment.PackageType = shipment.PackageType;
 
-        if(shipment.VehicleId.HasValue)
+        if(shipment.VehicleId.HasValue && shipment.VehicleId.Value != 0)
         {
             var existingVehicle = await _vehicleRepository.FindByIdAsync(shipment.VehicleId.Value);
             if (existingVehicle == null)
