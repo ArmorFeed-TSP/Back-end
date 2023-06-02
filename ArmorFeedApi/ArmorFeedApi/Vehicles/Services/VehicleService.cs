@@ -76,7 +76,7 @@ namespace ArmorFeedApi.Vehicles.Services;
             existingVehicle.Year= vehicle.Year;
             existingVehicle.Model = vehicle.Model;
             existingVehicle.MaintenanceDate= vehicle.MaintenanceDate;
-            existingVehicle.VehicleType = vehicle.VehicleType;
+            existingVehicle.Image = vehicle.Image;
             existingVehicle.CurrentState = vehicle.CurrentState;
 
             try
