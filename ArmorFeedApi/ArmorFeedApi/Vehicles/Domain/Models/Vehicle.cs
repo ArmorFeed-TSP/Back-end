@@ -2,6 +2,7 @@
 
 using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Shipments.Domain.Models;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Runtime.Versioning;
 
 namespace ArmorFeedApi.Vehicles.Domain.Models;
