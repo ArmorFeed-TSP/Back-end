@@ -55,6 +55,7 @@ public class EnterprisesController: ControllerBase
         var resource = _mapper.Map<Enterprise, EnterpriseResource>(user);
         return Ok(resource);
     }
+    [AllowAnonymous]
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateAsync(int id, UpdateEnterpriseRequest request)
     {

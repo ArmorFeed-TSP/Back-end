@@ -48,7 +48,7 @@ public class AppDbContext: DbContext
         builder.Entity<Customer>().HasKey(p => p.Id);
         builder.Entity<Customer>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<Customer>().Property(p => p.Name).IsRequired().HasMaxLength(100);
-        builder.Entity<Customer>().Property(p => p.Photo);
+        builder.Entity<Customer>().Property(p => p.Photo).HasColumnType("longtext");
         builder.Entity<Customer>().Property(p => p.Ruc).IsRequired().HasMaxLength(50);
         builder.Entity<Customer>().Property(p => p.PhoneNumber).IsRequired().HasMaxLength(9);
         builder.Entity<Customer>().Property(p => p.Description).IsRequired();
@@ -88,7 +88,7 @@ public class AppDbContext: DbContext
         builder.Entity<Enterprise>().HasKey(p => p.Id);
         builder.Entity<Enterprise>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<Enterprise>().Property(p => p.Name).IsRequired().HasMaxLength(100);
-        builder.Entity<Enterprise>().Property(p => p.Photo);
+        builder.Entity<Enterprise>().Property(p => p.Photo).HasColumnType("longtext");
         builder.Entity<Enterprise>().Property(p => p.Ruc).IsRequired().HasMaxLength(50);
         builder.Entity<Enterprise>().Property(p => p.PhoneNumber).IsRequired().HasMaxLength(9);
         builder.Entity<Enterprise>().Property(p => p.Description).IsRequired();

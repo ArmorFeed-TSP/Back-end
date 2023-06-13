@@ -90,9 +90,7 @@ public class CustomerService:  ICustomerService
         if (userWithEmail != null && userWithEmail.Id != user.Id)
             throw new AppException($"Email '{request.Email}' is already taken");
         
-        //Hash Password if it was entered
-        if (!string.IsNullOrEmpty(request.Password))
-            user.PasswordHash = BCryptNet.HashPassword(request.Password);
+        
         
         //Map request to entity
         _mapper.Map(request, user);
