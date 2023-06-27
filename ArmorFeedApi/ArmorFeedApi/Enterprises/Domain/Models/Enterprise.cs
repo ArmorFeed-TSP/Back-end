@@ -11,4 +11,5 @@ public class Enterprise : User
     public float Score { get; set; }
     
     public IList<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
+    public IList<ShipmentDriver.Domain.Models.ShipmentDriver> ShipmentDrivers = new List<ShipmentDriver.Domain.Models.ShipmentDriver>();
 }
