@@ -151,6 +151,8 @@ using (var scope = app.Services.CreateScope())
 using (var context = scope.ServiceProvider.GetRequiredService<AppDbContext>())
 {
     context.Database.EnsureCreated();
+    context.Database.OpenConnection();
+    context.CreateSequence();
 }
 app.UseAuthentication();
 app.UseAuthorization();

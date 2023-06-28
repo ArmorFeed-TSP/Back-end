@@ -3,11 +3,11 @@ using ArmorFeedApi.Customers.Domain.Models;
 using ArmorFeedApi.Enterprises.Domain.Models;
 using ArmorFeedApi.Notifications.Domain.Models;
 using ArmorFeedApi.Payments.Domain.Model;
-using ArmorFeedApi.Security.Domain.Models;
 using ArmorFeedApi.Shared.Extensions;
 using ArmorFeedApi.Shipments.Domain.Models;
 using ArmorFeedApi.Vehicles.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace ArmorFeedApi.Shared.Persistence.Contexts;
 
@@ -26,6 +26,35 @@ public class AppDbContext: DbContext
     public DbSet<Customer> Customers{ get; set; }
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Notification> Notifications { get; set; }
+    public DbSet<ShipmentDriver.Domain.Models.ShipmentDriver?> ShipmentDrivers { get; set; }
+
+    public void CreateSequence()
+    {
+        bool tablaExiste = Database.GetDbConnection().GetSchema("Tables").Rows.Cast<DataRow>()
+            .Any(row => row["TABLE_NAME"].ToString() == "sequence");
+
+        if (!tablaExiste)
+        {
+
+            string createTableQuery = @"
+                CREATE TABLE armorfeed.sequence (
+                    nombre VARCHAR(255) PRIMARY KEY,
+                    valor INT
+                );";
+
+            Database.ExecuteSqlRaw(createTableQuery);
+
+            string insertRowQuery = @"
+            INSERT INTO armorfeed.sequence (nombre, valor)
+            SELECT 'mi_secuencia', 0
+            WHERE NOT EXISTS (
+                SELECT 0 FROM armorfeed.sequence WHERE nombre = 'mi_secuencia'
+            );";
+
+            Database.ExecuteSqlRaw(insertRowQuery);
+        }
+    }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -113,7 +142,7 @@ public class AppDbContext: DbContext
             .WithOne(p => p.Shipment)
             .HasForeignKey(p => p.ShipmentId);
 
-        //Shipments
+
         builder.Entity<Shipment>().ToTable("Shipments");
         builder.Entity<Shipment>().HasKey(s => s.Id);
         builder.Entity<Shipment>().Property(s => s.Id).IsRequired().ValueGeneratedOnAdd();
@@ -159,6 +188,29 @@ public class AppDbContext: DbContext
             );
         builder.Entity<Notification>().HasOne(n => n.Customer);
         builder.Entity<Notification>().HasOne(n => n.Enterprise);
+
+        // ShipmentDriver
+        #region ShipmentDriver
+
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>().ToTable("ShipmentDriver");
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>().HasKey(shipmentDriver => shipmentDriver.Id);
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>().Property(shipmentDriver => shipmentDriver.Id);
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>().Property(shipmentDriver => shipmentDriver.Description);
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>().Property(shipmentDriver => shipmentDriver.Email);
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>().Property(shipmentDriver => shipmentDriver.Ruc);
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>().Property(shipmentDriver => shipmentDriver.Photo);
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>().Property(shipmentDriver => shipmentDriver.Name);
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>().Property(shipmentDriver => shipmentDriver.PasswordHash);
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>().Property(shipmentDriver => shipmentDriver.PhoneNumber);
+        builder.Entity<ShipmentDriver.Domain.Models.ShipmentDriver>()
+            .HasMany(driver => driver.Shipments)
+            .WithOne(shipment => shipment.ShipmentDriver)
+            .HasForeignKey(shipment => shipment.ShipmentDriverId).IsRequired(false); // Nullable FK
+        builder.Entity<Enterprise>()
+            .HasMany(e => e.ShipmentDrivers)
+            .WithOne(sd => sd.Enterprise)
+            .HasForeignKey(sd => sd.EnterpriseId);
+        #endregion
 
 
         //Apply Snake Case Naming Convention
